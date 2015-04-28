@@ -45,8 +45,13 @@
           <label>{{studyType.label}}</label>
           <!-- <input type="text" class="form-control" ng-model="title.value" name="{{studyType.label}}" value=""> -->
           <select ng-model="studyType.value" class="form-control" ng-options="option for option in studyType.options" name="{{studyType.label}}">
-            <!-- <option value="">  </option> -->
           </select>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>{{abstract.label}}</label>
+          <em>{{abstract.description}}</em>
+          <textarea class="form-control" ng-model="abstract.value" name="{{abstract.label}}" value=""></textarea>
         </fieldset>
 
       </form>
@@ -61,7 +66,7 @@
                   &lt;CENTER_PROJECT_NAME&gt;{{shortName.value}}&lt;/CENTER_PROJECT_NAME&gt;
                   &lt;STUDY_TITLE&gt;{{title.value}}&lt;/STUDY_TITLE&gt;
                     &lt;STUDY_TYPE existing_study_type="{{studyType.value}}"/&gt;
-                    &lt;STUDY_ABSTRACT&gt;This is a fake study for testing purposes.&lt;/STUDY_ABSTRACT&gt;
+                    &lt;STUDY_ABSTRACT&gt;{{abstract.value}}&lt;/STUDY_ABSTRACT&gt;
                 &lt;/DESCRIPTOR&gt;
                 &lt;STUDY_ATTRIBUTES&gt;
                     &lt;STUDY_ATTRIBUTE&gt;

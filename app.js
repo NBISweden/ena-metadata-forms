@@ -38,6 +38,12 @@
       value: 'Whole Genome Sequencing'
     };
 
+    $scope.abstract = {
+      label: 'Abstract',
+      description: 'A detailed desciption of the project akin to an article abstract',
+      value: ''
+    };
+
 
   }]);
 
