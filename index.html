@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ENA meta data forms</title>
+
+    <!-- Bootstrap -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    ￼<script type="text/javascript" src="app.js"></script>
+  </head>
+  <body ng-app="enaMetadata">
+    <div ng-controller="StudyController as study">
+      <form>
+
+        <fieldset class="form-group">
+          <label>{{shortName.label}}</label>
+          <em>{{shortName.description}}</em>
+          <input type="text" class="form-control" ng-model="shortName.value" name="{{shortName.label}}" value="">
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>{{title.label}}</label>
+          <em>{{title.description}}</em>
+          <input type="text" class="form-control" ng-model="title.value" name="{{title.label}}" value="">
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>{{studyType.label}}</label>
+          <!-- <input type="text" class="form-control" ng-model="title.value" name="{{studyType.label}}" value=""> -->
+          <select ng-model="studyType.value" class="form-control" ng-options="option for option in studyType.options" name="{{studyType.label}}">
+            <!-- <option value="">  </option> -->
+          </select>
+        </fieldset>
+
+      </form>
+
+      <pre><code>
+        &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        &lt;STUDY_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd"&gt;
+            &lt;STUDY alias="{{shortName.value}}"
+                center_name="BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES"&gt;
+                &lt;DESCRIPTOR&gt;
+                  &lt;CENTER_PROJECT_NAME&gt;{{shortName.value}}&lt;/CENTER_PROJECT_NAME&gt;
+                  &lt;STUDY_TITLE&gt;{{title.value}}&lt;/STUDY_TITLE&gt;
+                    &lt;STUDY_TYPE existing_study_type="{{studyType.value}}"/&gt;
+                    &lt;STUDY_ABSTRACT&gt;This is a fake study for testing purposes.&lt;/STUDY_ABSTRACT&gt;
+                &lt;/DESCRIPTOR&gt;
+                &lt;STUDY_ATTRIBUTES&gt;
+                    &lt;STUDY_ATTRIBUTE&gt;
+                        &lt;TAG&gt;Real&lt;/TAG&gt;
+                        &lt;VALUE&gt;No&lt;/VALUE&gt;
+                    &lt;/STUDY_ATTRIBUTE&gt;
+                    &lt;!-- You can generate your own fields and values here using STUDY_ATTRIBUTE
+                        tag-value pairs. Please delete any unused attributes and add as many as
+                        required. --&gt;
+
+                &lt;/STUDY_ATTRIBUTES&gt;
+            &lt;/STUDY&gt;
+            &lt;!-- If you are submitting more than one study, replicate the block &lt;STUDY&gt; to &lt;/STUDY&gt;
+                here, as many times as necessary. --&gt;
+        &lt;/STUDY_SET&gt;
+
+
+        </code>
+      </pre>
+    </div>
+  </body>
+</html>
