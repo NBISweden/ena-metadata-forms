@@ -43,9 +43,15 @@
       description: 'A detailed desciption of the project akin to an article abstract',
       value: ''
     };
-
-
   }]);
+
+  app.directive('studyXml', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'study-xml.html'
+    };
+  });
+
 
   // var studyItems = [
   //   {
