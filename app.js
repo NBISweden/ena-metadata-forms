@@ -61,19 +61,10 @@
       return;
     }
 
-    $scope.getXML = function() {
-      var pre_element = $("#pre-xml")[0]; // angular has added a child with the same id, so getting the first child
-      var xml_text = pre_element.textContent || pre_element.innerText;
-      // console.log(pre_element);
-      console.log(xml_text);
-    }
-
     $scope.saveXML = function() {
       var pre_element = $("#pre-xml")[0]; // angular has added a child with the same id, so getting the first child
       var xml_text = pre_element.textContent || pre_element.innerText;
-      // console.log(pre_element);
-      console.log(xml_text);
-
+      // console.log(xml_text);
       var blob = new Blob([xml_text], {type: "application/xml;charset=utf-8"});;
       saveAs(blob, "study.xml");
     }
