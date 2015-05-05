@@ -48,6 +48,12 @@
             <form>
 
               <fieldset class="form-group">
+                <label>{{centerName.label}}</label>
+                <em>{{centerName.description}}</em>
+                <input type="text" class="form-control" ng-model="centerName.value" name="{{centerName.label}}" placeholder="{{centerName.placeholder}}" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
                 <label>{{shortName.label}}</label>
                 <em>{{shortName.description}}</em>
                 <input type="text" class="form-control" ng-model="shortName.value" name="{{shortName.label}}" value="">
