@@ -101,9 +101,13 @@
             </form>
           </div>
         </div>
-        <!-- <button type="button" class="btn btn-default" ng-click="getXML()"><span class="glyphicon glyphicon-save"> Get XML</span></button> -->
-        <button type="button" class="btn btn-default" ng-click="saveXML()"><span class="glyphicon glyphicon-save"> Get XML</span></button>
-        <div class="panel panel-success">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Output XML</h3>
+          </div>
+          <div class="panel-body">
+            <button type="button" class="btn btn-info" ng-click="saveXML()"><span class="glyphicon glyphicon-save"></span> Save XML to file</button>
+          </div>
           <study-xml></study-xml>
         </div>
       </div> <!-- container -->
