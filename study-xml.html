@@ -2,8 +2,7 @@
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;STUDY_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd"&gt;
-  &lt;STUDY alias="{{shortName.value}}"
-  center_name="BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES"&gt;
+  &lt;STUDY alias="{{shortName.value}}" center_name="{{centerName.value|uppercase}}"&gt;
     &lt;DESCRIPTOR&gt;
       &lt;CENTER_PROJECT_NAME&gt;{{shortName.value}}&lt;/CENTER_PROJECT_NAME&gt;
       &lt;STUDY_TITLE&gt;{{title.value}}&lt;/STUDY_TITLE&gt;
