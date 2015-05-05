@@ -1,5 +1,4 @@
 <pre>
-  <code>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;STUDY_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd"&gt;
@@ -10,14 +9,13 @@
       &lt;STUDY_TITLE&gt;{{title.value}}&lt;/STUDY_TITLE&gt;
       &lt;STUDY_TYPE existing_study_type="{{studyType.value}}"/&gt;
       &lt;STUDY_ABSTRACT&gt;{{abstract.value}}&lt;/STUDY_ABSTRACT&gt;
-    &lt;/DESCRIPTOR&gt;
-    &lt;STUDY_ATTRIBUTES&gt;
+    &lt;/DESCRIPTOR&gt;<div ng-show="!studyAttributes[0].tag==''" >
+    &lt;STUDY_ATTRIBUTES&gt;  <div ng-repeat="studyAttribute in studyAttributes">
       &lt;STUDY_ATTRIBUTE&gt;
-        &lt;TAG&gt;Real&lt;/TAG&gt;
-        &lt;VALUE&gt;No&lt;/VALUE&gt;
-      &lt;/STUDY_ATTRIBUTE&gt;
-    &lt;/STUDY_ATTRIBUTES&gt;
+        &lt;TAG&gt;{{studyAttribute.tag}}&lt;/TAG&gt;
+        &lt;VALUE&gt;{{studyAttribute.value}}&lt;/VALUE&gt;
+      &lt;/STUDY_ATTRIBUTE&gt;</div>
+    &lt;/STUDY_ATTRIBUTES&gt;</div>
   &lt;/STUDY&gt;
 &lt;/STUDY_SET&gt;
-  </code>
 </pre>
