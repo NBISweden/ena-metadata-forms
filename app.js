@@ -4,6 +4,13 @@
 
   app.controller('StudyController', ['$scope',function($scope) {
     // this.items = studyItems;
+    $scope.centerName = {
+      label: 'Center name',
+      description: 'The name of your institution as specified in your ENA user account',
+      value: '',
+      placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+    };
+
     $scope.shortName = {
       label: 'Short name',
       description: 'A short descriptive name for the project',
