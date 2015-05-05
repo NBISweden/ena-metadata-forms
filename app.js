@@ -61,6 +61,19 @@
       return;
     }
 
+    $scope.getXML = function() {
+      var pre_element = $("#pre-xml")[0];
+      var xml_text = pre_element.textContent || pre_element.innerText;
+      console.log(pre_element);
+    }
+
+    $scope.saveXML = function() {
+
+      var blob = new Blob(["Hello, world!"], {type: "application/xml;charset=utf-8"});;
+
+    }
+
+
   }]);
 
   app.directive('studyXml', function () {
