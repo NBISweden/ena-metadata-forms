@@ -43,6 +43,24 @@
       description: 'A detailed desciption of the project akin to an article abstract',
       value: ''
     };
+
+    $scope.studyAttributes = [
+      {tag: "", value: ""}
+    ];
+
+    $scope.addNewAttribute = function() {
+      $scope.studyAttributes.push({tag: "", value: ""});
+    };
+
+    $scope.removeAttribute = function() {
+      var lastItem = $scope.studyAttributes.length-1;
+      $scope.studyAttributes.splice(lastItem);
+    };
+
+    $scope.noAttributes = function() {
+      return;
+    }
+
   }]);
 
   app.directive('studyXml', function () {
