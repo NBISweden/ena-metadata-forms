@@ -71,17 +71,4 @@
   });
 
 
-  // var studyItems = [
-  //   {
-  //     name: 'Short name',
-  //     type: 'text',
-  //     default: 'A short descriptive name for the project'
-  //   },
-  //   {
-  //     name: 'Title',
-  //     type: 'text',
-  //     default: 'A short description of the project akin to an article title'
-  //   }
-  // ];
-
 })();
