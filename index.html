@@ -40,10 +40,22 @@
   <body ng-app="enaMetadata">
     <div ng-controller="StudyController as study">
       <div class="container">
-        <form name="uploadForm">
-        <p><input id="uploadInput" type="file" class="btn btn-info" name="studyFile" accept=".xml"> </p>
-        <button type="button" class="btn btn-info" ng-click="parseXML()"><span class="glyphicon glyphicon-open"></span>Use information in file</button>
-        </form>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form class="form-inline">
+              <fieldset>
+                <div class="form-group">
+                  <label for="uploadStudyInput">Select XML file</label>
+                  <input id="uploadStudyInput" type="file" name="studyFile" accept=".xml">
+                </div>
+                <div class="form-group">
+                  <label for="fillStudyForm">Then </label><br>
+                  <button type="button" name="fillStudyForm" class="btn btn-default" ng-click="parseXML()"><span class="glyphicon glyphicon-refresh"></span>Fill form with info in file</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
 
         <div class="panel panel-success">
           <div class="panel-heading">
@@ -117,7 +129,7 @@
             <h3 class="panel-title">Output XML</h3>
           </div>
           <div class="panel-body">
-            <button type="button" class="btn btn-info" ng-click="saveXML()"><span class="glyphicon glyphicon-save"></span> Save XML to file</button>
+            <button type="button" class="btn btn-default" ng-click="saveXML()"><span class="glyphicon glyphicon-save-file"></span> Save XML to file</button>
           </div>
           <div class="panel-body">
             <study-xml></study-xml>
