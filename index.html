@@ -43,6 +43,42 @@
   <body ng-app="enaMetadata">
     <div ng-controller="StudyController as study">
       <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Instructions</h3>
+          </div>
+          <div class="panel-body">
+            <p>
+              Add the information needed to define the Study in the form below.
+              When you are done you can download the information in an XML file
+              (see <em>Output XML</em> section below).
+            </p>
+            <p>
+              Alternatively, you can upload the information using a previously saved file:
+            </p>
+            <form class="form-inline">
+              <fieldset>
+                <div class="form-group">
+                  <label for="uploadStudyInput">Select XML file</label>
+                  <input id="uploadStudyInput" type="file" name="studyFile" accept=".xml">
+                </div>
+                <div class="form-group">
+                  <label for="fillStudyForm">
+                    Insert info in file to
+                  </label><br>
+                  <button type="button"
+                          name="fillStudyForm"
+                          class="btn btn-default"
+                          ng-click="parseXML()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                            Fill form
+                  </button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+
         <div class="panel panel-success">
           <div class="panel-heading">
               <h3 class="panel-title">Study metadata</h3>
@@ -84,7 +120,7 @@
           </div>
         </div>
         <!-- Optional tag-value pairs -->
-        <div class="panel panel-success">
+        <div class="panel panel-warning">
           <div class="panel-heading">
             <h3 class="panel-title">Optional Study attributes</h3>
           </div>
@@ -111,14 +147,13 @@
           </div>
         </div>
         <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Output XML</h3>
+          <div class="panel-heading clearfix">
+            <!-- <span class="caret"></span> -->
+            <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="saveXML()"><span class="glyphicon glyphicon-save-file"></span> Save XML to file</button>
           </div>
           <div class="panel-body">
-            <button type="button" class="btn btn-info" ng-click="saveXML()"><span class="glyphicon glyphicon-save"></span> Save XML to file</button>
-          </div>
-          <div class="panel-body">
-            <study-xml></study-xml>
+            <study-xml></study-xml> <!-- This is an angular custom directive -->
           </div>
         </div>
       </div> <!-- container -->

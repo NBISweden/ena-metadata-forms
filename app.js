@@ -76,8 +76,42 @@
       saveAs(blob, "study.xml");
     }
 
+    $scope.parseXML = function () {
 
-  }]);
+      var input = $("#uploadStudyInput")[0].files[0];
+      var reader = new FileReader();
+      var content;
+
+      reader.onload = function(e) {
+        var content = reader.result;
+
+        var xmlDoc = $.parseXML( content ); // using jquery to parse the xml string
+        var $xml = $( xmlDoc );
+
+        $scope.$apply(function() { // to update bindings
+          $scope.centerName.value = $xml.find( "STUDY" ).attr("center_name");
+          $scope.shortName.value = $xml.find( "CENTER_PROJECT_NAME" ).text();
+          $scope.title.value = $xml.find( "STUDY_TITLE" ).text();
+          $scope.studyType.value = $xml.find( "STUDY_TYPE" ).attr("existing_study_type");
+          $scope.abstract.value = $xml.find( "STUDY_ABSTRACT" ).text();
+
+          $scope.studyAttributes = [];
+          var attributes = $xml.find( "STUDY_ATTRIBUTE" );
+          attributes.each(function() {
+            $scope.studyAttributes.push(
+              {
+                tag: $(this).find("TAG").text(),
+                value: $(this).find("VALUE").text()
+              });
+          });
+        });
+      };
+
+      reader.readAsText(input, 'UTF-8');
+
+    };
+
+  }]); // app.controller
 
   app.directive('studyXml', function () {
     return {
