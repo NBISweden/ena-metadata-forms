@@ -78,7 +78,7 @@
 
     $scope.parseXML = function () {
 
-      var input = $("#uploadInput")[0].files[0];
+      var input = $("#uploadStudyInput")[0].files[0];
       var reader = new FileReader();
       var content;
 
