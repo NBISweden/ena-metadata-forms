@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<STUDY_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd">
+  <STUDY alias="Fab foo bar study" center_name="BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES">
+    <DESCRIPTOR>
+      <CENTER_PROJECT_NAME>Fab foo bar study</CENTER_PROJECT_NAME>
+      <STUDY_TITLE>A fabulous study regarding the effects of foo on bar</STUDY_TITLE>
+      <STUDY_TYPE existing_study_type="Transcriptome Analysis"/>
+      <STUDY_ABSTRACT>In an attempt to better understand the effects of foo on bar, a number of fabulous experiments were conducted.</STUDY_ABSTRACT>
+    </DESCRIPTOR>
+    <STUDY_ATTRIBUTES>  
+      <STUDY_ATTRIBUTE>
+        <TAG>foo</TAG>
+        <VALUE>1</VALUE>
+      </STUDY_ATTRIBUTE>
+      <STUDY_ATTRIBUTE>
+        <TAG>bar</TAG>
+        <VALUE>42</VALUE>
+      </STUDY_ATTRIBUTE>
+    </STUDY_ATTRIBUTES>
+  </STUDY>
+</STUDY_SET>
