@@ -40,6 +40,11 @@
   <body ng-app="enaMetadata">
     <div ng-controller="StudyController as study">
       <div class="container">
+        <form name="uploadForm">
+        <p><input id="uploadInput" type="file" class="btn btn-info" name="studyFile" accept=".xml"> </p>
+        <button type="button" class="btn btn-info" ng-click="parseXML()"><span class="glyphicon glyphicon-open"></span>Use information in file</button>
+        </form>
+
         <div class="panel panel-success">
           <div class="panel-heading">
               <h3 class="panel-title">Study metadata</h3>
