@@ -47,7 +47,7 @@
 
     $scope.abstract = {
       label: 'Abstract',
-      description: 'A detailed desciption of the project akin to an article abstract',
+      description: 'A detailed description of the project akin to an article abstract',
       value: ''
     };
 
