@@ -81,24 +81,24 @@
               <h3 class="panel-title">Study metadata</h3>
           </div>
           <div class="panel-body">
-            <form>
+            <form name="studyRequiredForm">
 
               <fieldset class="form-group">
                 <label>{{study.centerName.label}}</label>
                 <em>{{study.centerName.description}}</em>
-                <input type="text" class="form-control" ng-model="study.centerName.value" name="{{study.centerName.label}}" placeholder="{{study.centerName.placeholder}}" value="">
+                <input type="text" class="form-control" ng-model="study.centerName.value" name="{{study.centerName.label}}" placeholder="{{study.centerName.placeholder}}" value="" required>
               </fieldset>
 
               <fieldset class="form-group">
                 <label>{{study.shortName.label}}</label>
                 <em>{{study.shortName.description}}</em>
-                <input type="text" class="form-control" ng-model="study.shortName.value" name="{{study.shortName.label}}" value="">
+                <input type="text" class="form-control" ng-model="study.shortName.value" name="{{study.shortName.label}}" value="" required>
               </fieldset>
 
               <fieldset class="form-group">
                 <label>{{study.title.label}}</label>
                 <em>{{study.title.description}}</em>
-                <input type="text" class="form-control" ng-model="study.title.value" name="{{study.title.label}}" value="">
+                <input type="text" class="form-control" ng-model="study.title.value" name="{{study.title.label}}" value="" required>
               </fieldset>
 
               <fieldset class="form-group">
@@ -111,7 +111,7 @@
               <fieldset class="form-group">
                 <label>{{study.abstract.label}}</label>
                 <em>{{study.abstract.description}}</em>
-                <textarea class="form-control" ng-model="study.abstract.value" name="{{study.abstract.label}}" value=""></textarea>
+                <textarea class="form-control" ng-model="study.abstract.value" name="{{study.abstract.label}}" value="" required></textarea>
               </fieldset>
             </form>
           </div>
@@ -147,7 +147,12 @@
           <div class="panel-heading clearfix">
             <!-- <span class="caret"></span> -->
             <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
-            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="study.saveXML()"><span class="glyphicon glyphicon-save-file"></span> Save XML to file</button>
+            <button type="button"
+              class="btn btn-default btn-sm pull-right"
+              ng-click="study.saveXML()"
+              ng-disabled="studyRequiredForm.$invalid">
+                <span class="glyphicon glyphicon-save-file"></span> Save XML to file
+            </button>
           </div>
           <div class="panel-body">
             <study-xml></study-xml> <!-- This is an angular custom directive -->
