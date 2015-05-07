@@ -2,28 +2,29 @@
 
   var app = angular.module('enaMetadata', []);
 
-  app.controller('StudyController', ['$scope',function($scope) {
+  app.controller('StudyController', ['$scope',function($scope) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
     // this.items = studyItems;
-    $scope.centerName = {
+    var self = this;
+    self.centerName = {
       label: 'Center name',
       description: 'The name of your institution as specified in your ENA user account',
       value: '',
       placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
     };
 
-    $scope.shortName = {
+    self.shortName = {
       label: 'Short name',
       description: 'A short descriptive name for the project',
       value: ''
     };
 
-    $scope.title = {
+    self.title = {
       label: 'Title',
       description: 'A short description of the project akin to an article title',
       value: ''
     };
 
-    $scope.studyType = {
+    self.studyType = {
       label: 'Study type',
       description: '',
       options: [
@@ -45,30 +46,30 @@
       value: 'Whole Genome Sequencing'
     };
 
-    $scope.abstract = {
+    self.abstract = {
       label: 'Abstract',
       description: 'A detailed description of the project akin to an article abstract',
       value: ''
     };
 
-    $scope.studyAttributes = [
+    self.studyAttributes = [
       {tag: "", value: ""}
     ];
 
-    $scope.addNewAttribute = function() {
-      $scope.studyAttributes.push({tag: "", value: ""});
+    self.addNewAttribute = function() {
+      self.studyAttributes.push({tag: "", value: ""});
     };
 
-    $scope.removeAttribute = function() {
-      var lastItem = $scope.studyAttributes.length-1;
-      $scope.studyAttributes.splice(lastItem);
+    self.removeAttribute = function() {
+      var lastItem = self.studyAttributes.length-1;
+      self.studyAttributes.splice(lastItem);
     };
 
-    $scope.noAttributes = function() {
+    self.noAttributes = function() {
       return;
     }
 
-    $scope.saveXML = function() {
+    self.saveXML = function() {
       var pre_element = $("#pre-study-xml")[0]; // angular has added a child with the same id, so getting the first child
       var xml_text = pre_element.textContent || pre_element.innerText;
       // console.log(xml_text);
@@ -76,7 +77,7 @@
       saveAs(blob, "study.xml");
     }
 
-    $scope.parseXML = function () {
+    self.parseXML = function () {
 
       var input = $("#uploadStudyInput")[0].files[0];
       var reader = new FileReader();
@@ -89,16 +90,16 @@
         var $xml = $( xmlDoc );
 
         $scope.$apply(function() { // to update bindings
-          $scope.centerName.value = $xml.find( "STUDY" ).attr("center_name");
-          $scope.shortName.value = $xml.find( "CENTER_PROJECT_NAME" ).text();
-          $scope.title.value = $xml.find( "STUDY_TITLE" ).text();
-          $scope.studyType.value = $xml.find( "STUDY_TYPE" ).attr("existing_study_type");
-          $scope.abstract.value = $xml.find( "STUDY_ABSTRACT" ).text();
+          self.centerName.value = $xml.find( "STUDY" ).attr("center_name");
+          self.shortName.value = $xml.find( "CENTER_PROJECT_NAME" ).text();
+          self.title.value = $xml.find( "STUDY_TITLE" ).text();
+          self.studyType.value = $xml.find( "STUDY_TYPE" ).attr("existing_study_type");
+          self.abstract.value = $xml.find( "STUDY_ABSTRACT" ).text();
 
-          $scope.studyAttributes = [];
+          self.studyAttributes = [];
           var attributes = $xml.find( "STUDY_ATTRIBUTE" );
           attributes.each(function() {
-            $scope.studyAttributes.push(
+            self.studyAttributes.push(
               {
                 tag: $(this).find("TAG").text(),
                 value: $(this).find("VALUE").text()

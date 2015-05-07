@@ -66,7 +66,7 @@
                   <button type="button"
                           name="fillStudyForm"
                           class="btn btn-default"
-                          ng-click="parseXML()">
+                          ng-click="study.parseXML()">
                             <span class="glyphicon glyphicon-refresh"></span>
                             Fill form
                   </button>
@@ -84,34 +84,34 @@
             <form>
 
               <fieldset class="form-group">
-                <label>{{centerName.label}}</label>
-                <em>{{centerName.description}}</em>
-                <input type="text" class="form-control" ng-model="centerName.value" name="{{centerName.label}}" placeholder="{{centerName.placeholder}}" value="">
+                <label>{{study.centerName.label}}</label>
+                <em>{{study.centerName.description}}</em>
+                <input type="text" class="form-control" ng-model="study.centerName.value" name="{{study.centerName.label}}" placeholder="{{study.centerName.placeholder}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{shortName.label}}</label>
-                <em>{{shortName.description}}</em>
-                <input type="text" class="form-control" ng-model="shortName.value" name="{{shortName.label}}" value="">
+                <label>{{study.shortName.label}}</label>
+                <em>{{study.shortName.description}}</em>
+                <input type="text" class="form-control" ng-model="study.shortName.value" name="{{study.shortName.label}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{title.label}}</label>
-                <em>{{title.description}}</em>
-                <input type="text" class="form-control" ng-model="title.value" name="{{title.label}}" value="">
+                <label>{{study.title.label}}</label>
+                <em>{{study.title.description}}</em>
+                <input type="text" class="form-control" ng-model="study.title.value" name="{{study.title.label}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{studyType.label}}</label>
+                <label>{{study.studyType.label}}</label>
                 <!-- <input type="text" class="form-control" ng-model="title.value" name="{{studyType.label}}" value=""> -->
-                <select ng-model="studyType.value" class="form-control" ng-options="option for option in studyType.options" name="{{studyType.label}}">
+                <select ng-model="study.studyType.value" class="form-control" ng-options="option for option in study.studyType.options" name="{{study.studyType.label}}">
                 </select>
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{abstract.label}}</label>
-                <em>{{abstract.description}}</em>
-                <textarea class="form-control" ng-model="abstract.value" name="{{abstract.label}}" value=""></textarea>
+                <label>{{study.abstract.label}}</label>
+                <em>{{study.abstract.description}}</em>
+                <textarea class="form-control" ng-model="study.abstract.value" name="{{study.abstract.label}}" value=""></textarea>
               </fieldset>
             </form>
           </div>
@@ -123,7 +123,7 @@
           </div>
           <div class="panel-body">
             <form class="form-inline">
-              <fieldset ng-repeat="studyAttribute in studyAttributes">
+              <fieldset ng-repeat="studyAttribute in study.studyAttributes">
                 <div class="form-group">
                   <label>Tag</label>
                   <!-- set model & name--><input type="text" class="form-control" ng-model="studyAttribute.tag" name="" value="">
@@ -132,11 +132,11 @@
                   <label>Value</label>
                   <input type="text" class="form-control" ng-model="studyAttribute.value" name="" value="">
                 </div>
-                <button type="button" class="btn btn-default" ng-click="removeAttribute()" ng-hide="$first" ng-show="$last">
+                <button type="button" class="btn btn-default" ng-click="study.removeAttribute()" ng-hide="$first" ng-show="$last">
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
 
-                <button type="button" class="btn btn-default" ng-click="addNewAttribute()" ng-show="$last">
+                <button type="button" class="btn btn-default" ng-click="study.addNewAttribute()" ng-show="$last">
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
               </fieldset>
@@ -147,7 +147,7 @@
           <div class="panel-heading clearfix">
             <!-- <span class="caret"></span> -->
             <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
-            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="saveXML()"><span class="glyphicon glyphicon-save-file"></span> Save XML to file</button>
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="study.saveXML()"><span class="glyphicon glyphicon-save-file"></span> Save XML to file</button>
           </div>
           <div class="panel-body">
             <study-xml></study-xml> <!-- This is an angular custom directive -->

@@ -2,14 +2,14 @@
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;STUDY_SET xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.study.xsd"&gt;
-  &lt;STUDY alias="{{shortName.value}}" center_name="{{centerName.value|uppercase}}"&gt;
+  &lt;STUDY alias="{{study.shortName.value}}" center_name="{{study.centerName.value|uppercase}}"&gt;
     &lt;DESCRIPTOR&gt;
-      &lt;CENTER_PROJECT_NAME&gt;{{shortName.value}}&lt;/CENTER_PROJECT_NAME&gt;
-      &lt;STUDY_TITLE&gt;{{title.value}}&lt;/STUDY_TITLE&gt;
-      &lt;STUDY_TYPE existing_study_type="{{studyType.value}}"/&gt;
-      &lt;STUDY_ABSTRACT&gt;{{abstract.value}}&lt;/STUDY_ABSTRACT&gt;
-    &lt;/DESCRIPTOR&gt;<div ng-show="!studyAttributes[0].tag==''" >
-    &lt;STUDY_ATTRIBUTES&gt;  <div ng-repeat="studyAttribute in studyAttributes">
+      &lt;CENTER_PROJECT_NAME&gt;{{study.shortName.value}}&lt;/CENTER_PROJECT_NAME&gt;
+      &lt;STUDY_TITLE&gt;{{study.title.value}}&lt;/STUDY_TITLE&gt;
+      &lt;STUDY_TYPE existing_study_type="{{study.studyType.value}}"/&gt;
+      &lt;STUDY_ABSTRACT&gt;{{study.abstract.value}}&lt;/STUDY_ABSTRACT&gt;
+    &lt;/DESCRIPTOR&gt;<div ng-show="!study.studyAttributes[0].tag==''" >
+    &lt;STUDY_ATTRIBUTES&gt;  <div ng-repeat="studyAttribute in study.studyAttributes">
       &lt;STUDY_ATTRIBUTE&gt;
         &lt;TAG&gt;{{studyAttribute.tag}}&lt;/TAG&gt;
         &lt;VALUE&gt;{{studyAttribute.value}}&lt;/VALUE&gt;
