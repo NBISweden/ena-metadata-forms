@@ -52,7 +52,7 @@
         </ul>
       </div>
 
-
+      <!-- Study meta data form content -->
       <div ng-controller="StudyController as study" ng-show="content.isSelected(1)">
         <!-- Instructions panel -->
         <div class="panel panel-default">
@@ -176,6 +176,132 @@
         </div>
 
       </div> <!-- /study -->
+
+      <!-- Samples meta data form content -->
+      <div ng-controller="SamplesController as samples" ng-show="content.isSelected(2)">
+        <!-- Instructions panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Instructions</h3>
+          </div>
+          <div class="panel-body">
+            <p>
+              Add the information needed to define the Samples in the form below.
+              When you are done you can download the information in an XML file
+              (see <em>Output XML</em> section below).
+            </p>
+            <p>
+              Alternatively, you can upload the information using a previously saved file:
+            </p>
+            <form class="form-inline">
+              <fieldset>
+                <div class="form-group">
+                  <label for="uploadStudyInput">Select XML file</label>
+                  <input id="uploadStudyInput" type="file" name="studyFile" accept=".xml">
+                </div>
+                <div class="form-group">
+                  <label for="fillStudyForm">
+                    Insert info in file to
+                  </label><br>
+                  <button type="button"
+                          name="fillStudyForm"
+                          class="btn btn-default"
+                          ng-click="study.parseXML()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                            Fill form
+                  </button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <!-- Mandatory metadata panel -->
+        <div class="panel panel-success">
+          <div class="panel-heading">
+              <h3 class="panel-title">Sample metadata</h3>
+          </div>
+          <div class="panel-body">
+            <form name="sampleRequiredForm">
+
+              <fieldset class="form-group">
+                <label>{{study.centerName.label}}</label>
+                <em>{{study.centerName.description}}</em>
+                <input type="text" class="form-control" ng-model="study.centerName.value" name="{{study.centerName.label}}" placeholder="{{study.centerName.placeholder}}" value="" required>
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{study.shortName.label}}</label>
+                <em>{{study.shortName.description}}</em>
+                <input type="text" class="form-control" ng-model="study.shortName.value" name="{{study.shortName.label}}" value="" required>
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{study.title.label}}</label>
+                <em>{{study.title.description}}</em>
+                <input type="text" class="form-control" ng-model="study.title.value" name="{{study.title.label}}" value="" required>
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{study.studyType.label}}</label>
+                <!-- <input type="text" class="form-control" ng-model="title.value" name="{{studyType.label}}" value=""> -->
+                <select ng-model="study.studyType.value" class="form-control" ng-options="option for option in study.studyType.options" name="{{study.studyType.label}}">
+                </select>
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{study.abstract.label}}</label>
+                <em>{{study.abstract.description}}</em>
+                <textarea class="form-control" ng-model="study.abstract.value" name="{{study.abstract.label}}" value="" required></textarea>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <!-- Optional tag-value pairs panel -->
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">Optional Study attributes</h3>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline">
+              <fieldset ng-repeat="studyAttribute in study.studyAttributes">
+                <div class="form-group">
+                  <label>Tag</label>
+                  <!-- set model & name--><input type="text" class="form-control" ng-model="studyAttribute.tag" name="" value="">
+                </div>
+                <div class="form-group">
+                  <label>Value</label>
+                  <input type="text" class="form-control" ng-model="studyAttribute.value" name="" value="">
+                </div>
+                <button type="button" class="btn btn-default" ng-click="study.removeAttribute()" ng-hide="$first" ng-show="$last">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+
+                <button type="button" class="btn btn-default" ng-click="study.addNewAttribute()" ng-show="$last">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <!-- Output XML panel -->
+        <div class="panel panel-info">
+          <div class="panel-heading clearfix">
+            <!-- <span class="caret"></span> -->
+            <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
+            <button type="button"
+              class="btn btn-default btn-sm pull-right"
+              ng-click="samples.saveXML()"
+              ng-disabled="samplesRequiredForm.$invalid">
+                <span class="glyphicon glyphicon-save-file"></span> Save XML to file
+            </button>
+          </div>
+          <div class="panel-body">
+            <samples-xml></samples-xml> <!-- This is an angular custom directive -->
+          </div>
+        </div>
+
+      </div> <!-- /sample -->
+
     </div> <!-- /container -->
   </body><!-- /ng-app -->
 </html>
