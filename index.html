@@ -41,18 +41,19 @@
     <div class="container">
       <h1>ENA submission information forms</h1>
 
-    <div ng-controller="PanelController as panel">
-      <ul class="nav nav-tabs">
-        <li ng-class="{ active: panel.isSelected(1) }">
-          <a href ng-click="panel.selectTab(1)">Study</a>
-        </li>
-        <li ng-class="{ active: panel.isSelected(2) }">
-          <a href ng-click="panel.selectTab(2)">Samples</a>
-        </li>
-      </ul>
-    </div>
+      <div ng-controller="PanelController as panel">
+        <ul class="nav nav-tabs">
+          <li ng-class="{ active: panel.isSelected(1) }">
+            <a href ng-click="panel.selectTab(1)">Study</a>
+          </li>
+          <li ng-class="{ active: panel.isSelected(2) }">
+            <a href ng-click="panel.selectTab(2)">Samples</a>
+          </li>
+        </ul>
+      </div>
 
-    <div ng-controller="StudyController as study">
+      <div ng-controller="StudyController as study">
+        <!-- Instructions panel -->
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Instructions</h3>
@@ -88,7 +89,7 @@
             </form>
           </div>
         </div>
-
+        <!-- Mandatory metadata panel -->
         <div class="panel panel-success">
           <div class="panel-heading">
               <h3 class="panel-title">Study metadata</h3>
@@ -129,7 +130,7 @@
             </form>
           </div>
         </div>
-        <!-- Optional tag-value pairs -->
+        <!-- Optional tag-value pairs panel -->
         <div class="panel panel-warning">
           <div class="panel-heading">
             <h3 class="panel-title">Optional Study attributes</h3>
@@ -156,6 +157,7 @@
             </form>
           </div>
         </div>
+        <!-- Output XML panel -->
         <div class="panel panel-info">
           <div class="panel-heading clearfix">
             <!-- <span class="caret"></span> -->
@@ -171,7 +173,8 @@
             <study-xml></study-xml> <!-- This is an angular custom directive -->
           </div>
         </div>
-      </div>
+        
+      </div> <!-- /study -->
     </div> <!-- /container -->
   </body><!-- /ng-app -->
 </html>
