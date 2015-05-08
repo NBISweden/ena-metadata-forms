@@ -38,21 +38,22 @@
     ￼<script type="text/javascript" src="app.js"></script>
   </head>
   <body ng-app="enaMetadata">
-    <div class="container">
+    <div class="container" ng-controller="ContentController as content">
       <h1>ENA submission information forms</h1>
 
-      <div ng-controller="PanelController as panel">
+      <div >
         <ul class="nav nav-tabs">
-          <li ng-class="{ active: panel.isSelected(1) }">
-            <a href ng-click="panel.selectTab(1)">Study</a>
+          <li ng-class="{ active: content.isSelected(1) }">
+            <a href ng-click="content.selectTab(1)">Study</a>
           </li>
-          <li ng-class="{ active: panel.isSelected(2) }">
-            <a href ng-click="panel.selectTab(2)">Samples</a>
+          <li ng-class="{ active: content.isSelected(2) }">
+            <a href ng-click="content.selectTab(2)">Samples</a>
           </li>
         </ul>
       </div>
 
-      <div ng-controller="StudyController as study">
+
+      <div ng-controller="StudyController as study" ng-show="content.isSelected(1)">
         <!-- Instructions panel -->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -173,7 +174,7 @@
             <study-xml></study-xml> <!-- This is an angular custom directive -->
           </div>
         </div>
-        
+
       </div> <!-- /study -->
     </div> <!-- /container -->
   </body><!-- /ng-app -->
