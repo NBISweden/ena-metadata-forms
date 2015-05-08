@@ -2,8 +2,8 @@
 
   var app = angular.module('enaMetadata', []);
 
-  // PanelController
-  app.controller('PanelController', ['$scope',function($scope) { // remove scope?
+  // ContentController
+  app.controller('ContentController', ['$scope',function($scope) { // remove scope?
     var self = this;
 
     self.tab = 1;
@@ -13,9 +13,8 @@
     };
 
     self.isSelected = function(checkTab){
-    ￼  return self.tab === checkTab;
+      return self.tab === checkTab;
     };
-
   }]);
 
   // StudyController
