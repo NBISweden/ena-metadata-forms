@@ -137,5 +137,12 @@
     };
   });
 
+  app.directive('samplesXml', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'samples-xml.html'
+    };
+  });
+
 
 })();
