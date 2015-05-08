@@ -271,6 +271,12 @@
                   <h3 class="panel-title">Optional common Sample attributes</h3>
                 </div>
                 <div class="panel-body">
+                  <p>
+                    <button type="button" class="btn btn-default" ng-click="samples.loadChecklist()">
+                      <span class="glyphicon glyphicon-refresh"></span>
+                    </button>
+                    Load ENA default sample checklist (ERC000011)
+                  </p>
                   <ng-form class="form-inline">
                     <fieldset ng-repeat="attribute in samples.common.attributes">
                       <div class="form-group">
@@ -280,6 +286,10 @@
                       <div class="form-group">
                         <label>Value</label>
                         <input type="text" class="form-control" ng-model="attribute.value" name="" value="">
+                      </div>
+                      <div class="form-group">
+                        <label>(Unit)</label>
+                        <input type="text" class="form-control" ng-model="attribute.unit" name="" value="">
                       </div>
                       <button type="button" class="btn btn-default" ng-click="samples.removeAttribute(samples.common)" ng-hide="$first" ng-show="$last">
                         <span class="glyphicon glyphicon-minus"></span>
@@ -297,7 +307,7 @@
             </form>
           </div>
         </div>
-        <!-- Optional tag-value pairs panel -->
+        <!-- OLD Optional tag-value pairs panel -->
         <div class="panel panel-warning">
           <div class="panel-heading">
             <h3 class="panel-title">Optional Study attributes</h3>

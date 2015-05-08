@@ -184,7 +184,7 @@
         placeholder: 'Sample from ...'
       },
       attributes: [
-        {tag: "", value: ""}
+        {tag: "", value: "", unit: ""}
       ]
     };
 
@@ -233,7 +233,7 @@
           placeholder: 'Sample from ...'
         },
         attributes: [
-          {tag: "", value: ""}
+          {tag: "", value: "", unit: ""}
         ]
       }
     ];
@@ -245,6 +245,10 @@
     self.removeAttribute = function(sample) {
       var lastItem = sample.attributes.length-1;
       sample.attributes.splice(lastItem);
+    };
+
+    self.loadChecklist = function() {
+      // need to add magic here
     };
 
     self.saveXML = function() {
