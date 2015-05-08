@@ -2,6 +2,23 @@
 
   var app = angular.module('enaMetadata', []);
 
+  // PanelController
+  app.controller('PanelController', ['$scope',function($scope) { // remove scope?
+    var self = this;
+
+    self.tab = 1;
+
+    self.selectTab = function(setTab) {
+      this.tab = setTab;
+    };
+
+    self.isSelected = function(checkTab){
+    ￼  return self.tab === checkTab;
+    };
+
+  }]);
+
+  // StudyController
   app.controller('StudyController', ['$scope',function($scope) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
     // this.items = studyItems;
     var self = this;
