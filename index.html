@@ -215,44 +215,85 @@
             </form>
           </div>
         </div>
-        <!-- Mandatory metadata panel -->
+        <!-- Common metadata panel -->
         <div class="panel panel-success">
           <div class="panel-heading">
-              <h3 class="panel-title">Sample metadata</h3>
+              <h3 class="panel-title">Metadata common for all samples</h3>
           </div>
           <div class="panel-body">
-            <form name="sampleRequiredForm">
+            <form name="sampleCommonForm">
 
               <fieldset class="form-group">
-                <label>{{study.centerName.label}}</label>
-                <em>{{study.centerName.description}}</em>
-                <input type="text" class="form-control" ng-model="study.centerName.value" name="{{study.centerName.label}}" placeholder="{{study.centerName.placeholder}}" value="" required>
+                <label>{{samples.common.centerName.label}}</label>
+                <em>{{samples.common.centerName.description}}</em>
+                <input type="text" class="form-control" ng-model="samples.common.centerName.value" placeholder="{{samples.common.centerName.placeholder}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{study.shortName.label}}</label>
-                <em>{{study.shortName.description}}</em>
-                <input type="text" class="form-control" ng-model="study.shortName.value" name="{{study.shortName.label}}" value="" required>
+                <label>{{samples.common.name.label}}</label>
+                <em>{{samples.common.name.description}}</em>
+                <input type="text" class="form-control" ng-model="samples.common.name.value" placeholder="{{samples.common.name.placeholder}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{study.title.label}}</label>
-                <em>{{study.title.description}}</em>
-                <input type="text" class="form-control" ng-model="study.title.value" name="{{study.title.label}}" value="" required>
+                <label>{{samples.common.title.label}}</label>
+                <em>{{samples.common.title.description}}</em>
+                <input type="text" class="form-control" ng-model="samples.common.title.value" placeholder="{{samples.common.title.placeholder}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{study.studyType.label}}</label>
-                <!-- <input type="text" class="form-control" ng-model="title.value" name="{{studyType.label}}" value=""> -->
-                <select ng-model="study.studyType.value" class="form-control" ng-options="option for option in study.studyType.options" name="{{study.studyType.label}}">
-                </select>
+                <label>{{samples.common.taxonID.label}}</label>
+                <em>{{samples.common.taxonID.description}}</em>
+                <input type="text" class="form-control" ng-model="samples.common.taxonID.value" placeholder="{{samples.common.taxonID.placeholder}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
-                <label>{{study.abstract.label}}</label>
-                <em>{{study.abstract.description}}</em>
-                <textarea class="form-control" ng-model="study.abstract.value" name="{{study.abstract.label}}" value="" required></textarea>
+                <label>{{samples.common.sci_name.label}}</label>
+                <em>{{samples.common.sci_name.description}}</em>
+                <input type="text" class="form-control" ng-model="samples.common.sci_name.value" placeholder="{{samples.common.sci_name.placeholder}}" value="">
               </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{samples.common.common_name.label}}</label>
+                <em>{{samples.common.common_name.description}}</em>
+                <input type="text" class="form-control" ng-model="samples.common.common_name.value" placeholder="{{samples.common.common_name.placeholder}}" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{samples.common.description.label}}</label>
+                <em>{{samples.common.description.description}}</em>
+                <input type="text" class="form-control" ng-model="samples.common.description.value" placeholder="{{samples.common.description.placeholder}}" value="">
+              </fieldset>
+
+              <!-- Optional tag-value pairs panel -->
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Optional common Sample attributes</h3>
+                </div>
+                <div class="panel-body">
+                  <ng-form class="form-inline">
+                    <fieldset ng-repeat="attribute in samples.common.attributes">
+                      <div class="form-group">
+                        <label>Tag</label>
+                        <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Value</label>
+                        <input type="text" class="form-control" ng-model="attribute.value" name="" value="">
+                      </div>
+                      <button type="button" class="btn btn-default" ng-click="samples.removeAttribute(samples.common)" ng-hide="$first" ng-show="$last">
+                        <span class="glyphicon glyphicon-minus"></span>
+                      </button>
+
+                      <button type="button" class="btn btn-default" ng-click="samples.addNewAttribute(samples.common)" ng-show="$last">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                    </fieldset>
+                  </ng-form>
+                </div>
+              </div>
+
+
             </form>
           </div>
         </div>

@@ -6,7 +6,7 @@
   app.controller('ContentController', ['$scope',function($scope) { // remove scope?
     var self = this;
 
-    self.tab = 1;
+    self.tab = 2;
 
     self.selectTab = function(setTab) {
       this.tab = setTab;
@@ -136,69 +136,116 @@
   app.controller('SamplesController', ['$scope',function($scope) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
     // this.items = studyItems;
     var self = this;
-    self.centerName = {
-      label: 'Center name',
-      description: 'The name of your institution as specified in your ENA user account',
-      value: '',
-      placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+
+    self.field_names = [ 'centerName', 'name', 'title'];
+
+
+    self.common = { // object of data common for all samples in sample set
+      centerName: {
+        label: 'Center name',
+        description: 'The name of your institution as specified in your ENA user account',
+        value: '',
+        placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+      },
+      name: {
+        label: 'Sample name',
+        description: 'A unique name for the sample',
+        value: '',
+        placeholder: 'Sample001'
+      },
+      title: {
+        label: 'Title',
+        description: 'A short informative description of the sample',
+        value: '',
+        placeholder: 'A human sample'
+      },
+      taxonID: {
+        label: 'Taxon ID',
+        description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
+        value: '',
+        placeholder: '9606'
+      },
+      sci_name: {
+        label: 'Scientific name',
+        description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
+        value: '',
+        placeholder: 'homo sapiens'
+      },
+      common_name: {
+        label: 'Common name - optional',
+        description: 'The common name for the organism (e.g. human)',
+        value: '',
+        placeholder: 'human'
+      },
+      description: {
+        label: 'Description - optional',
+        description: 'A longer description of sample and how it differs from other samples',
+        value: '',
+        placeholder: 'Sample from ...'
+      },
+      attributes: [
+        {tag: "", value: ""}
+      ]
     };
 
-    self.shortName = {
-      label: 'Short name',
-      description: 'A short descriptive name for the project',
-      value: ''
-    };
-
-    self.title = {
-      label: 'Title',
-      description: 'A short description of the project akin to an article title',
-      value: ''
-    };
-
-    self.studyType = {
-      label: 'Study type',
-      description: '',
-      options: [
-        "Whole Genome Sequencing",
-        "Metagenomics",
-        "Transcriptome Analysis",
-        "Resequencing",
-        "Epigenetics",
-        "Synthetic Genomics",
-        "Forensic or Paleo-genomics",
-        "Gene Regulation Study",
-        "Cancer Genomics",
-        "Population Genomics",
-        "RNASeq",
-        "Exome Sequencing",
-        "Pooled Clone Sequencing",
-        "Other"
-      ],
-      value: 'Whole Genome Sequencing'
-    };
-
-    self.abstract = {
-      label: 'Abstract',
-      description: 'A detailed description of the project akin to an article abstract',
-      value: ''
-    };
-
-    self.studyAttributes = [
-      {tag: "", value: ""}
+    self.list = [ // list of samples and their data to be filled in
+      {
+        centerName: {
+          label: 'Center name',
+          description: 'The name of your institution as specified in your ENA user account',
+          value: '',
+          placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+        },
+        name: {
+          label: 'Sample name',
+          description: 'A unique name for the sample',
+          value: '',
+          placeholder: 'Sample001'
+        },
+        title: {
+          label: 'Title',
+          description: 'A short informative description of the sample',
+          value: '',
+          placeholder: 'Sample001'
+        },
+        taxonID: {
+          label: 'Taxon ID',
+          description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
+          value: '',
+          placeholder: '9606'
+        },
+        sci_name: {
+          label: 'Scientific name',
+          description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
+          value: '',
+          placeholder: 'homo sapiens'
+        },
+        common_name: {
+          label: 'Common name - optional',
+          description: 'The common name for the organism (e.g. human)',
+          value: '',
+          placeholder: 'human'
+        },
+        description: {
+          label: 'Description - optional',
+          description: 'A longer description of sample and how it differs from other samples',
+          value: '',
+          placeholder: 'Sample from ...'
+        },
+        attributes: [
+          {tag: "", value: ""}
+        ]
+      }
     ];
 
-    self.addNewAttribute = function() {
-      self.studyAttributes.push({tag: "", value: ""});
+    self.addNewAttribute = function(sample) {
+      sample.attributes.push({tag: "", value: ""});
     };
 
-    self.removeAttribute = function() {
-      var lastItem = self.studyAttributes.length-1;
-      self.studyAttributes.splice(lastItem);
+    self.removeAttribute = function(sample) {
+      var lastItem = sample.attributes.length-1;
+      sample.attributes.splice(lastItem);
     };
-
-    self.noAttributes = function() {
-      return;
-    }
 
     self.saveXML = function() {
       var pre_element = $("#pre-samples-xml")[0]; // angular has added a child with the same id, so getting the first child
@@ -208,6 +255,7 @@
       saveAs(blob, "sample.xml");
     }
 
+    // Note! This will not work - code from Study
     self.parseXML = function () {
 
       var input = $("#uploadStudyInput")[0].files[0];
