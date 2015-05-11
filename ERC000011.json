@@ -1,0 +1,122 @@
+[
+  {
+    "tag": "ENA-CHECKLIST",
+    "value": "ERC000011"
+  },
+  {
+    "tag": "bio_material",
+    "description": "identifier for the biological material from which the sample was obtained, with optional institution code and collection code for the place where it is currently stored"
+  },
+  {
+    "tag": "culture_collection",
+    "description": "institution code and identifier for the culture from which the sample was obtained, with optional collection code"
+  },
+  {
+    "tag": "specimen_voucher",
+    "description": "identifier for the specimen from which the sample was obtained"
+  },
+  {
+    "tag": "collected_by",
+    "description": "name of the person who collected the specimen"
+  },
+  {
+    "tag": "collection_date",
+    "description": "date that the specimen was collected"
+  },
+  {
+    "tag": "country",
+    "description": "locality of isolation of the sampled organism indicated in terms of political names for nations, oceans or seas, followed by regions and localities"
+  },
+  {
+    "tag": "host",
+    "description": "natural (as opposed to laboratory) host to the organism from which sample was obtained"
+  },
+  {
+    "tag": "identified_by",
+    "description": "name of the taxonomist who identified the specimen"
+  },
+  {
+    "tag": "isolation_source",
+    "description": "describes the physical, environmental and/or local geographical source of the biological sample from which the sample was derived"
+  },
+  {
+    "tag": "lat_lon",
+    "description": "geographical coordinates of the location where the specimen was collected"
+  },
+  {
+    "tag": "lab_host",
+    "description": "scientific name of the laboratory host used to propagate the source organism from which the sample was obtained"
+  },
+  {
+    "tag": "environmental_sample",
+    "description": "identifies records derived by direct molecular isolation from a bulk environmental DNA sample (by PCR with or without subsequent cloning of the product, DGGE, or other anonymous methods) with no reliable identification of the source organism. Environmental samples include clinical samples, gut contents, and others from anonymous organisms that may be associated with a particular host. They do not include endosymbionts that can be reliably recovered from a particular host, organisms from a readily identifiable but uncultured field sample (e.g., many cyanobacteria), or phytoplasmas that can be reliably recovered from diseased plants (even though these cannot be grown in axenic culture)."
+  },
+  {
+    "tag": "mating_type",
+    "description": ""
+  },
+  {
+    "tag": "sex",
+    "description": "sex of the organism from which the sample was obtained; sex is used for eukaryotic organisms that undergo meiosis and have sexually dimorphic gametes"
+  },
+  {
+    "tag": "cell_type",
+    "description": "cell type from which the sample was obtained"
+  },
+  {
+    "tag": "dev_stage",
+    "description": "if the sample was obtained from an organism in a specific developmental stage, it is specified with this qualifier"
+  },
+  {
+    "tag": "germline",
+    "description": "the sample described presented in the entry has not undergone somatic genomic rearrangement as part of an adaptive immune response; it is the unrearranged molecule that was inherited from the parental germline"
+  },
+  {
+    "tag": "tissue_lib",
+    "description": "tissue library from which sample was obtained"
+  },
+  {
+    "tag": "tissue_type",
+    "description": "tissue type from which the sample was obtained"
+  },
+  {
+    "tag": "cultivar",
+    "description": "cultivar (cultivated variety) of plant from which sample was obtained"
+  },
+  {
+    "tag": "ecotype",
+    "description": "a population within a given species displaying genetically based, phenotypic traits that reflect adaptation to a local habitat."
+  },
+  {
+    "tag": "isolate",
+    "description": "individual isolate from which the sample was obtained"
+  },
+  {
+    "tag": "strain",
+    "description": "strain from which sample was obtained"
+  },
+  {
+    "tag": "sub_species",
+    "description": "name of sub-species of organism from which sample was obtained"
+  },
+  {
+    "tag": "variety",
+    "description": "variety (= varietas, a formal Linnaean rank) of organism from which sample was derived."
+  },
+  {
+    "tag": "sub_strain",
+    "description": "name or identifier of a genetically or otherwise modified strain from which sample was obtained, derived from a parental strain (which should be annotated in the strain field; sub_strain from which sample was obtained"
+  },
+  {
+    "tag": "cell_line",
+    "description": "cell line from which the sample was obtained"
+  },
+  {
+    "tag": "serotype",
+    "description": "serological variety of a species characterized by its antigenic properties"
+  },
+  {
+    "tag": "serovar",
+    "description": "serological variety of a species (usually a prokaryote) characterized by its antigenic properties"
+  }
+]
