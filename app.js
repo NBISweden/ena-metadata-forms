@@ -2,6 +2,13 @@
 
   var app = angular.module('enaMetadata', []);
 
+  // // will this work?
+  // // leave for now
+  // app.config(function($httpProvider) {
+  //     //Enable cross domain calls
+  //     $httpProvider.defaults.useXDomain = true;
+  // });
+
   // ContentController
   app.controller('ContentController', ['$scope',function($scope) { // remove scope?
     var self = this;
@@ -133,7 +140,7 @@
   /* ------------------------------------------
    *   SamplesController
    * ------------------------------------------ */
-  app.controller('SamplesController', ['$scope',function($scope) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+  app.controller('SamplesController', ['$scope','$http',function($scope, $http) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
     // this.items = studyItems;
     var self = this;
 
@@ -237,6 +244,17 @@
         ]
       }
     ];
+
+    // // cross domain problems as usual - leave for now
+    // self.getTaxonData = function() {
+    //   var url = "http://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/tax-id/" + self.common.taxonID.value;
+    //   $http.get(url).then(function(response) {
+    //     $scope.$apply(function() {
+    //       self.common.sci_name = response.data.scientificName;
+    //       self.common.common_name = response.data.commonName;
+    //     });
+    //   });
+    // };
 
     self.addNewAttribute = function(sample) {
       sample.attributes.push({tag: "", value: ""});
