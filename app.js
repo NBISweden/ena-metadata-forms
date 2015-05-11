@@ -230,6 +230,10 @@
       });
     };
 
+    self.filterEmptyAttributes = function(element) {
+      return element.value;
+    };
+
     self.addNewSample = function() {
       var tmp = {
         centerName: {

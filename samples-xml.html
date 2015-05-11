@@ -11,7 +11,7 @@
             &lt;COMMON_NAME&gt;{{sample.common_name.value}}&lt;/COMMON_NAME&gt;
         &lt;/SAMPLE_NAME&gt;
         &lt;DESCRIPTION&gt;{{sample.description.value}}&lt;/DESCRIPTION&gt;
-        &lt;SAMPLE_ATTRIBUTES&gt;<div ng-repeat="attribute in sample.attributes">
+        &lt;SAMPLE_ATTRIBUTES&gt;<div ng-repeat="attribute in sample.attributes | filter: samples.filterEmptyAttributes">
             &lt;SAMPLE_ATTRIBUTE&gt;
                 &lt;TAG&gt;{{attribute.tag}}&lt;/TAG&gt;
                 &lt;VALUE&gt;{{attribute.value}}&lt;/VALUE&gt;
