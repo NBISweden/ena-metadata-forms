@@ -167,19 +167,19 @@
         placeholder: 'A human sample'
       },
       taxonID: {
-        label: 'Taxon ID',
+        label: 'Organism Taxon ID',
         description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
         value: '',
         placeholder: '9606'
       },
       sci_name: {
-        label: 'Scientific name',
+        label: 'Organism  scientific name',
         description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
         value: '',
         placeholder: 'homo sapiens'
       },
       common_name: {
-        label: 'Common name - optional',
+        label: 'Organism common name - optional',
         description: 'The common name for the organism (e.g. human)',
         value: '',
         placeholder: 'human'
@@ -196,53 +196,53 @@
     };
 
     self.list = [ // list of samples and their data to be filled in
-      {
-        centerName: {
-          label: 'Center name',
-          description: 'The name of your institution as specified in your ENA user account',
-          value: '',
-          placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
-        },
-        name: {
-          label: 'Sample name',
-          description: 'A unique name for the sample',
-          value: '',
-          placeholder: 'Sample001'
-        },
-        title: {
-          label: 'Title',
-          description: 'A short informative description of the sample',
-          value: '',
-          placeholder: 'Sample001'
-        },
-        taxonID: {
-          label: 'Taxon ID',
-          description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
-          value: '',
-          placeholder: '9606'
-        },
-        sci_name: {
-          label: 'Scientific name',
-          description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
-          value: '',
-          placeholder: 'homo sapiens'
-        },
-        common_name: {
-          label: 'Common name - optional',
-          description: 'The common name for the organism (e.g. human)',
-          value: '',
-          placeholder: 'human'
-        },
-        description: {
-          label: 'Description - optional',
-          description: 'A longer description of sample and how it differs from other samples',
-          value: '',
-          placeholder: 'Sample from ...'
-        },
-        attributes: [
-          {tag: "", value: "", unit: ""}
-        ]
-      }
+      // {
+      //   centerName: {
+      //     label: 'Center name',
+      //     description: 'The name of your institution as specified in your ENA user account',
+      //     value: '',
+      //     placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+      //   },
+      //   name: {
+      //     label: 'Sample name',
+      //     description: 'A unique name for the sample',
+      //     value: '',
+      //     placeholder: 'Sample001'
+      //   },
+      //   title: {
+      //     label: 'Title',
+      //     description: 'A short informative description of the sample',
+      //     value: '',
+      //     placeholder: 'Sample001'
+      //   },
+      //   taxonID: {
+      //     label: 'Taxon ID',
+      //     description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
+      //     value: '',
+      //     placeholder: '9606'
+      //   },
+      //   sci_name: {
+      //     label: 'Scientific name',
+      //     description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
+      //     value: '',
+      //     placeholder: 'homo sapiens'
+      //   },
+      //   common_name: {
+      //     label: 'Common name - optional',
+      //     description: 'The common name for the organism (e.g. human)',
+      //     value: '',
+      //     placeholder: 'human'
+      //   },
+      //   description: {
+      //     label: 'Description - optional',
+      //     description: 'A longer description of sample and how it differs from other samples',
+      //     value: '',
+      //     placeholder: 'Sample from ...'
+      //   },
+      //   attributes: [
+      //     {tag: "", value: "", unit: ""}
+      //   ]
+      // }
     ];
 
     // // cross domain problems as usual - leave for now
@@ -268,6 +268,67 @@
     self.loadChecklist = function() {
       // need to add magic here
     };
+
+    self.addNewSample = function() {
+      var tmp = {
+        centerName: {
+          label: 'Center name',
+          description: 'The name of your institution as specified in your ENA user account',
+          value: self.common.centerName.value,
+          placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+        },
+        name: {
+          label: 'Sample name',
+          description: 'A unique name for the sample',
+          value: self.common.name.value,
+          placeholder: 'Sample001'
+        },
+        title: {
+          label: 'Title',
+          description: 'A short informative description of the sample',
+          value: self.common.title.value,
+          placeholder: 'Sample001'
+        },
+        taxonID: {
+          label: 'Organism Taxon ID',
+          description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
+          value: self.common.taxonID.value,
+          placeholder: '9606'
+        },
+        sci_name: {
+          label: 'Organism scientific name',
+          description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
+          value: self.common.sci_name.value,
+          placeholder: 'homo sapiens'
+        },
+        common_name: {
+          label: 'Organism common name - optional',
+          description: 'The common name for the organism (e.g. human)',
+          value: self.common.common_name.value,
+          placeholder: 'human'
+        },
+        description: {
+          label: 'Description - optional',
+          description: 'A longer description of sample and how it differs from other samples',
+          value: self.common.description.value,
+          placeholder: 'Sample from ...'
+        },
+        attributes: []
+      };
+
+      // Add attributes
+      for (var i=0; i<self.common.attributes.length; i++) {
+        tmp.attributes.push(
+          {
+            tag: self.common.attributes[i].tag,
+            value: self.common.attributes[i].value,
+            unit: self.common.attributes[i].unit
+          });
+      };
+
+      self.list.push(tmp);
+
+    }
 
     self.saveXML = function() {
       var pre_element = $("#pre-samples-xml")[0]; // angular has added a child with the same id, so getting the first child
