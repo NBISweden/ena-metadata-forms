@@ -265,8 +265,17 @@
       sample.attributes.splice(lastItem);
     };
 
-    self.loadChecklist = function() {
+    self.loadChecklist = function(sample) {
+      if (!sample.attributes[0].tag) { sample.attributes = []; } // clear array if it only contains one empty attribute
       // need to add magic here
+      $http.get("ERC000011.json").then(function(response){
+        var attrs = response.data;
+        for (var i = 0; i < attrs.length; i++) {
+          sample.attributes.push(
+            attrs[i]
+          );
+        }
+      });
     };
 
     self.addNewSample = function() {
