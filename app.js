@@ -195,55 +195,8 @@
       ]
     };
 
-    self.list = [ // list of samples and their data to be filled in
-      // {
-      //   centerName: {
-      //     label: 'Center name',
-      //     description: 'The name of your institution as specified in your ENA user account',
-      //     value: '',
-      //     placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
-      //   },
-      //   name: {
-      //     label: 'Sample name',
-      //     description: 'A unique name for the sample',
-      //     value: '',
-      //     placeholder: 'Sample001'
-      //   },
-      //   title: {
-      //     label: 'Title',
-      //     description: 'A short informative description of the sample',
-      //     value: '',
-      //     placeholder: 'Sample001'
-      //   },
-      //   taxonID: {
-      //     label: 'Taxon ID',
-      //     description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
-      //     value: '',
-      //     placeholder: '9606'
-      //   },
-      //   sci_name: {
-      //     label: 'Scientific name',
-      //     description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
-      //     value: '',
-      //     placeholder: 'homo sapiens'
-      //   },
-      //   common_name: {
-      //     label: 'Common name - optional',
-      //     description: 'The common name for the organism (e.g. human)',
-      //     value: '',
-      //     placeholder: 'human'
-      //   },
-      //   description: {
-      //     label: 'Description - optional',
-      //     description: 'A longer description of sample and how it differs from other samples',
-      //     value: '',
-      //     placeholder: 'Sample from ...'
-      //   },
-      //   attributes: [
-      //     {tag: "", value: "", unit: ""}
-      //   ]
-      // }
-    ];
+    self.list = []; // list of samples and their data to be filled in
+
 
     // // cross domain problems as usual - leave for now
     // self.getTaxonData = function() {
@@ -267,7 +220,6 @@
 
     self.loadChecklist = function(sample) {
       if (!sample.attributes[0].tag) { sample.attributes = []; } // clear array if it only contains one empty attribute
-      // need to add magic here
       $http.get("ERC000011.json").then(function(response){
         var attrs = response.data;
         for (var i = 0; i < attrs.length; i++) {
