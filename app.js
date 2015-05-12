@@ -384,15 +384,16 @@
             cmp_attr.unique = false;
             cmp_attr.value = "";
           }
-
         } else {
-          curr_attr.unique = true;
-          self.common.attributes.push(curr_attr);
+          var new_attr = {
+            tag: curr_attr.tag,
+            value: curr_attr.value,
+            unit: curr_attr.unit,
+            unique: true
+          }
+          self.common.attributes.push(new_attr);
         }
-
       }
-
-
     };
 
     // To find if an attribute is present in the common attributes list
