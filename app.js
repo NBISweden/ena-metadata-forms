@@ -212,9 +212,13 @@
       sample.attributes.push({tag: "", value: ""});
     };
 
-    self.removeAttribute = function(sample) {
-      var lastItem = sample.attributes.length-1;
-      sample.attributes.splice(lastItem);
+    self.removeAttribute = function(sample, attribute) {
+      var attr_index = sample.attributes.indexOf(attribute);
+      if(attr_index !== -1) {
+        sample.attributes.splice(attr_index, 1);
+      }
+      // var lastItem = sample.attributes.length-1;
+      // sample.attributes.splice(lastItem);
     };
 
     self.loadChecklist = function(sample) {
