@@ -234,7 +234,7 @@
       return element.value;
     };
 
-    self.addNewSample = function() {
+    self.addNewSample = function() { // should refactor this to one sample creating function
       var tmp = {
         centerName: {
           label: 'Center name',
@@ -306,7 +306,7 @@
     // Note! This will not work - code from Study
     self.parseXML = function () {
 
-      var input = $("#uploadStudyInput")[0].files[0];
+      var input = $("#uploadSampleInput")[0].files[0];
       var reader = new FileReader();
       var content;
 
@@ -317,26 +317,104 @@
         var $xml = $( xmlDoc );
 
         $scope.$apply(function() { // to update bindings
-          self.centerName.value = $xml.find( "STUDY" ).attr("center_name");
-          self.shortName.value = $xml.find( "CENTER_PROJECT_NAME" ).text();
-          self.title.value = $xml.find( "STUDY_TITLE" ).text();
-          self.studyType.value = $xml.find( "STUDY_TYPE" ).attr("existing_study_type");
-          self.abstract.value = $xml.find( "STUDY_ABSTRACT" ).text();
+          // // Old code
+          // self.centerName.value = $xml.find( "STUDY" ).attr("center_name");
+          // self.shortName.value = $xml.find( "CENTER_PROJECT_NAME" ).text();
+          // self.title.value = $xml.find( "STUDY_TITLE" ).text();
+          // self.studyType.value = $xml.find( "STUDY_TYPE" ).attr("existing_study_type");
+          // self.abstract.value = $xml.find( "STUDY_ABSTRACT" ).text();
+          //
+          // self.studyAttributes = [];
+          // var attributes = $xml.find( "STUDY_ATTRIBUTE" );
+          // attributes.each(function() {
+          //   self.studyAttributes.push(
+          //     {
+          //       tag: $(this).find("TAG").text(),
+          //       value: $(this).find("VALUE").text()
+          //     });
+          // });
 
-          self.studyAttributes = [];
-          var attributes = $xml.find( "STUDY_ATTRIBUTE" );
-          attributes.each(function() {
-            self.studyAttributes.push(
-              {
+          // New code
+          var samples = $xml.find("SAMPLE");
+          samples.each(function(){
+            // var newSample = {};
+            var attr_nodes = $(this).find("SAMPLE_ATTRIBUTE");
+            var attrs = [];
+            attr_nodes.each(function() {
+              attrs.push({
                 tag: $(this).find("TAG").text(),
-                value: $(this).find("VALUE").text()
-              });
+                value: $(this).find("VALUE").text(),
+                unit: $(this).find("UNIT").text()
+              })
+            });
+            self.list.push(
+              self.createSample(
+                $(this).attr( "center_name" ), // centerName
+                $(this).attr( "alias" ),  // name
+                $(this).find( "TITLE" ).text(), // title
+                $(this).find( "TAXON_ID" ).text(), // taxon ID
+                $(this).find( "SCIENTIFIC_NAME" ).text(), // sci_name
+                $(this).find( "COMMON_NAME" ).text(), // common_name
+                $(this).find( "DESCRIPTION" ).text(), // description
+                attrs // attributes
+              )
+            );
+
           });
+
         });
       };
 
       reader.readAsText(input, 'UTF-8');
 
+    };
+
+    self.createSample = function(center, n, tit, taxID, scin, commonn, descr, attr) {
+      return {
+        centerName: {
+          label: 'Center name',
+          description: 'The name of your institution as specified in your ENA user account',
+          value: center,
+          placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+        },
+        name: {
+          label: 'Sample name',
+          description: 'A unique name for the sample',
+          value: n,
+          placeholder: 'Sample001'
+        },
+        title: {
+          label: 'Title',
+          description: 'A short informative description of the sample',
+          value: tit,
+          placeholder: 'Sample001'
+        },
+        taxonID: {
+          label: 'Organism Taxon ID',
+          description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
+          value: taxID,
+          placeholder: '9606'
+        },
+        sci_name: {
+          label: 'Organism scientific name',
+          description: 'Scientific name as appears in NCBI taxonomy for the taxon_id (e.g. homo sapiens)',
+          value: scin,
+          placeholder: 'homo sapiens'
+        },
+        common_name: {
+          label: 'Organism common name - optional',
+          description: 'The common name for the organism (e.g. human)',
+          value: commonn,
+          placeholder: 'human'
+        },
+        description: {
+          label: 'Description - optional',
+          description: 'A longer description of sample and how it differs from other samples',
+          value: descr,
+          placeholder: 'Sample from ...'
+        },
+        attributes: attr
+      };
     };
 
   }]); // app.controller - SamplesController
