@@ -95,8 +95,7 @@
     self.saveXML = function() {
       var pre_element = $("#pre-study-xml")[0]; // angular has added a child with the same id, so getting the first child
       var xml_text = pre_element.textContent || pre_element.innerText;
-      // console.log(xml_text);
-      var blob = new Blob([xml_text], {type: "application/xml;charset=utf-8"});;
+      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});;
       saveAs(blob, "study.xml");
     }
 
@@ -298,7 +297,7 @@
     self.saveXML = function() {
       var pre_element = $("#pre-samples-xml")[0]; // angular has added a child with the same id, so getting the first child
       var xml_text = pre_element.textContent || pre_element.innerText;
-      var blob = new Blob([xml_text], {type: "application/xml;charset=utf-8"});;
+      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});;
       saveAs(blob, "sample.xml");
     }
 
