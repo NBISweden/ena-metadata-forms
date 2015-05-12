@@ -144,7 +144,7 @@
     // this.items = studyItems;
     var self = this;
 
-    self.field_names = [ 'centerName', 'name', 'title'];
+    // self.field_names = [ 'centerName', 'name', 'title'];
 
 
     self.common = { // object of data common for all samples in sample set
@@ -298,14 +298,11 @@
     self.saveXML = function() {
       var pre_element = $("#pre-samples-xml")[0]; // angular has added a child with the same id, so getting the first child
       var xml_text = pre_element.textContent || pre_element.innerText;
-      // console.log(xml_text);
       var blob = new Blob([xml_text], {type: "application/xml;charset=utf-8"});;
       saveAs(blob, "sample.xml");
     }
 
-    // Note! This will not work - code from Study
     self.parseXML = function () {
-
       var input = $("#uploadSampleInput")[0].files[0];
       var reader = new FileReader();
       var content;
@@ -317,24 +314,7 @@
         var $xml = $( xmlDoc );
 
         $scope.$apply(function() { // to update bindings
-          // // Old code
-          // self.centerName.value = $xml.find( "STUDY" ).attr("center_name");
-          // self.shortName.value = $xml.find( "CENTER_PROJECT_NAME" ).text();
-          // self.title.value = $xml.find( "STUDY_TITLE" ).text();
-          // self.studyType.value = $xml.find( "STUDY_TYPE" ).attr("existing_study_type");
-          // self.abstract.value = $xml.find( "STUDY_ABSTRACT" ).text();
-          //
-          // self.studyAttributes = [];
-          // var attributes = $xml.find( "STUDY_ATTRIBUTE" );
-          // attributes.each(function() {
-          //   self.studyAttributes.push(
-          //     {
-          //       tag: $(this).find("TAG").text(),
-          //       value: $(this).find("VALUE").text()
-          //     });
-          // });
 
-          // New code
           var samples = $xml.find("SAMPLE");
           samples.each(function(){
             // var newSample = {};
@@ -347,26 +327,81 @@
                 unit: $(this).find("UNIT").text()
               })
             });
-            self.list.push(
-              self.createSample(
-                $(this).attr( "center_name" ), // centerName
-                $(this).attr( "alias" ),  // name
-                $(this).find( "TITLE" ).text(), // title
-                $(this).find( "TAXON_ID" ).text(), // taxon ID
-                $(this).find( "SCIENTIFIC_NAME" ).text(), // sci_name
-                $(this).find( "COMMON_NAME" ).text(), // common_name
-                $(this).find( "DESCRIPTION" ).text(), // description
-                attrs // attributes
-              )
+
+            var newSample = self.createSample (
+              $(this).attr( "center_name" ), // centerName
+              $(this).attr( "alias" ),  // name
+              $(this).find( "TITLE" ).text(), // title
+              $(this).find( "TAXON_ID" ).text(), // taxon ID
+              $(this).find( "SCIENTIFIC_NAME" ).text(), // sci_name
+              $(this).find( "COMMON_NAME" ).text(), // common_name
+              $(this).find( "DESCRIPTION" ).text(), // description
+              attrs // attributes
             );
 
+            self.list.push(newSample);
+            self.checkUnique(newSample); // make effort to find common data between samples
           });
-
         });
       };
 
       reader.readAsText(input, 'UTF-8');
 
+    };
+
+    // To check and set unique values in the common sample info object
+    // Only removes non-unique values.
+    // NB! Does not check that all samples have these values
+    self.checkUnique = function (sample) {
+      for (var field in sample) {
+        if (field !== 'attributes') {
+          if (self.common[field].unique === undefined) {
+            self.common[field].unique = true;
+            self.common[field].value = sample[field].value;
+          } else if (self.common[field].unique && self.common[field].value !== sample[field].value) {
+            self.common[field].unique = false;
+            self.common[field].value = "";
+          }
+        };
+      };
+
+      // Now the attributes
+      for (var i = 0; i < sample.attributes.length; i++) {
+
+        if(self.common.attributes[0].tag === "") { self.common.attributes = []; }
+
+        var curr_attr = sample.attributes[i];
+        var cmp_attr;
+        if ( cmp_attr = self.isInCommonAttributes(curr_attr) ) { // tags will be equal
+          if (cmp_attr.unique === undefined) {
+            if (cmp_attr.value === curr_attr.value) {
+              cmp_attr.unique = true;
+              if (cmp_attr.value === undefined) { cmp_attr.value = curr_attr.value; }
+            } else {
+              cmp_attr.unique = false;
+            }
+          } else if (cmp_attr.unique && cmp_attr.value !==  curr_attr.value) {
+            cmp_attr.unique = false;
+            cmp_attr.value = "";
+          }
+
+        } else {
+          curr_attr.unique = true;
+          self.common.attributes.push(curr_attr);
+        }
+
+      }
+
+
+    };
+
+    // To find if an attribute is present in the common attributes list
+    // Assumes that it is only legal to have one attribute with the same tag
+    self.isInCommonAttributes = function(attr) {
+      for (var i = 0; i < self.common.attributes.length; i++) {
+        if (self.common.attributes[i].tag === attr.tag) { return self.common.attributes[i]; }
+      }
+      return false;
     };
 
     self.createSample = function(center, n, tit, taxID, scin, commonn, descr, attr) {
