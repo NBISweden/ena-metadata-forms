@@ -8,7 +8,7 @@
       <STUDY_TYPE existing_study_type="Transcriptome Analysis"/>
       <STUDY_ABSTRACT>In an attempt to better understand the effects of foo on bar, a number of fabulous experiments were conducted.</STUDY_ABSTRACT>
     </DESCRIPTOR>
-    <STUDY_ATTRIBUTES>  
+    <STUDY_ATTRIBUTES>
       <STUDY_ATTRIBUTE>
         <TAG>foo</TAG>
         <VALUE>1</VALUE>

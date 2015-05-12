@@ -202,17 +202,17 @@
             <form class="form-inline">
               <fieldset>
                 <div class="form-group">
-                  <label for="uploadStudyInput">Select XML file</label>
-                  <input id="uploadStudyInput" type="file" name="studyFile" accept=".xml">
+                  <label for="uploadSampleInput">Select XML file</label>
+                  <input id="uploadSampleInput" type="file" name="sampleFile" accept=".xml">
                 </div>
                 <div class="form-group">
                   <label for="fillStudyForm">
                     Insert info in file to
                   </label><br>
                   <button type="button"
-                          name="fillStudyForm"
+                          name="fillSampleForm"
                           class="btn btn-default"
-                          ng-click="study.parseXML()">
+                          ng-click="samples.parseXML()">
                             <span class="glyphicon glyphicon-refresh"></span>
                             Fill form
                   </button>
@@ -311,6 +311,7 @@
                       <button type="button" class="btn btn-default" ng-click="samples.addNewAttribute(samples.common)" ng-show="$last">
                         <span class="glyphicon glyphicon-plus"></span>
                       </button>
+                      <span class="help-block" style="padding-left: 30px">{{attribute.description}}</span>
                     </fieldset>
                   </ng-form>
                 </div>
@@ -376,7 +377,7 @@
               <!-- Optional tag-value pairs panel -->
               <div class="panel panel-warning">
                 <div class="panel-heading">
-                  <h3 class="panel-title">Optional common Sample attributes</h3>
+                  <h3 class="panel-title">Optional Sample attributes</h3>
                 </div>
                 <div class="panel-body">
                   <p>
@@ -414,40 +415,10 @@
 
             </form>
           </div>
-          <div class="panel">
+          <div class="panel-footer">
             <button type="button" class="btn btn-default" ng-click="samples.addNewSample()">Add sample</button>
           </div>
         </div>
-
-
-
-        <!-- OLD Optional tag-value pairs panel -->
-        <!-- <div class="panel panel-warning">
-          <div class="panel-heading">
-            <h3 class="panel-title">Optional Study attributes</h3>
-          </div>
-          <div class="panel-body">
-            <form class="form-inline">
-              <fieldset ng-repeat="studyAttribute in study.studyAttributes">
-                <div class="form-group">
-                  <label>Tag</label>
-                  <input type="text" class="form-control" ng-model="studyAttribute.tag" name="" value="">
-                </div>
-                <div class="form-group">
-                  <label>Value</label>
-                  <input type="text" class="form-control" ng-model="studyAttribute.value" name="" value="">
-                </div>
-                <button type="button" class="btn btn-default" ng-click="study.removeAttribute()" ng-hide="$first" ng-show="$last">
-                  <span class="glyphicon glyphicon-minus"></span>
-                </button>
-
-                <button type="button" class="btn btn-default" ng-click="study.addNewAttribute()" ng-show="$last">
-                  <span class="glyphicon glyphicon-plus"></span>
-                </button>
-              </fieldset>
-            </form>
-          </div>
-        </div> -->
 
 
 
