@@ -197,16 +197,18 @@
     self.list = []; // list of samples and their data to be filled in
 
 
-    // // cross domain problems as usual - leave for now
-    // self.getTaxonData = function() {
-    //   var url = "http://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/tax-id/" + self.common.taxonID.value;
-    //   $http.get(url).then(function(response) {
-    //     $scope.$apply(function() {
-    //       self.common.sci_name = response.data.scientificName;
-    //       self.common.common_name = response.data.commonName;
-    //     });
-    //   });
-    // };
+    // cross domain problems as usual - trying using a php proxy solution...
+    // self.getTaxonData = function(id) {
+    self.getTaxonData = function(sample) {
+      // var url = "http://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/tax-id/" + sample.taxonID.value; // If CORS would work, this would be enough. Use a php proxy instead.
+      var url = "taxon_proxy.php?id=" + sample.taxonID.value;
+
+      if (typeof sample.taxonID.value !== 'number') { return; }
+      $http.get(url).then(function(response) {
+        sample.sci_name.value = response.data.scientificName;
+        sample.common_name.value = response.data.commonName;
+      });
+    };
 
     self.addNewAttribute = function(sample) {
       sample.attributes.push({tag: "", value: ""});
