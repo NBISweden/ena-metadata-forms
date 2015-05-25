@@ -1,7 +1,7 @@
 <?php
 	// Debugging stuff
-	ini_set('display_errors', 'On');
-	error_reporting(E_ALL | E_STRICT);
+	// ini_set('display_errors', 'On');
+	// error_reporting(E_ALL | E_STRICT);
 
 	if( isset($_GET['id']) && is_numeric($_GET['id']) ) { // taxonID
 		$taxon_url = "http://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/tax-id/" . $_GET['id'];
