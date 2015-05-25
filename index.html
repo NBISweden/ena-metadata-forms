@@ -36,6 +36,15 @@
     <!--  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script> -->
     <script type="text/javascript" src="../angular/angular.min.js"></script>
     ￼<script type="text/javascript" src="app.js"></script>
+
+    <!-- Initialize bootstrap tooltip functionality on page -->
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+      });
+    </script>
+
+
   </head>
   <body ng-app="enaMetadata">
     <div class="container" ng-controller="ContentController as content">
@@ -147,11 +156,11 @@
                   <label>Value</label>
                   <input type="text" class="form-control" ng-model="studyAttribute.value" name="" value="">
                 </div>
-                <button type="button" class="btn btn-default" ng-click="study.removeAttribute()" ng-hide="$first" ng-show="$last">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="study.removeAttribute()" ng-hide="$first" ng-show="$last">
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
 
-                <button type="button" class="btn btn-default" ng-click="study.addNewAttribute()" ng-show="$last">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="study.addNewAttribute()" ng-show="$last">
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
               </fieldset>
@@ -301,11 +310,11 @@
                         <label>(Unit)</label>
                         <input type="text" class="form-control" ng-model="attribute.unit" name="" value="">
                       </div>
-                      <button type="button" class="btn btn-default" ng-click="samples.removeAttribute(samples.common)" ng-hide="$first" ng-show="$last">
+                      <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(samples.common)" ng-hide="$first" ng-show="$last">
                         <span class="glyphicon glyphicon-minus"></span>
                       </button>
 
-                      <button type="button" class="btn btn-default" ng-click="samples.addNewAttribute(samples.common)" ng-show="$last">
+                      <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(samples.common)" ng-show="$last">
                         <span class="glyphicon glyphicon-plus"></span>
                       </button>
                       <span class="help-block" style="padding-left: 30px">{{attribute.description}}</span>
@@ -409,13 +418,14 @@
                             <label>(Unit)</label>
                             <input type="text" class="form-control" ng-model="attribute.unit" name="" value="">
                           </div>
-                          <button type="button" class="btn btn-default" ng-click="samples.removeAttribute(sample, attribute)">
+                          <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(sample, attribute)">
                             <span class="glyphicon glyphicon-minus"></span>
                           </button>
 
-                          <button type="button" class="btn btn-default" ng-click="samples.addNewAttribute(sample)" ng-show="$last">
+                          <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(sample)" ng-show="$last">
                             <span class="glyphicon glyphicon-plus"></span>
                           </button>
+                          <span class="help-block" style="padding-left: 30px">{{attribute.description}}</span>
                         </fieldset>
                       </ng-form>
                     </div>
@@ -453,5 +463,6 @@
       </div> <!-- /sample -->
 
     </div> <!-- /container -->
+
   </body><!-- /ng-app -->
 </html>
