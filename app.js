@@ -292,7 +292,8 @@
           {
             tag: self.common.attributes[i].tag,
             value: self.common.attributes[i].value,
-            unit: self.common.attributes[i].unit
+            unit: self.common.attributes[i].unit,
+            description: self.common.attributes[i].description
           });
       };
 
