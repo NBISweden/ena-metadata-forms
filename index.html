@@ -259,13 +259,13 @@
 
               <fieldset class="form-group">
                 <label>{{samples.common.sci_name.label}}</label>
-                <em>{{samples.common.sci_name.description}}</em>
+                <em>{{samples.common.sci_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
                 <input type="text" class="form-control" ng-model="samples.common.sci_name.value" placeholder="{{samples.common.sci_name.placeholder}}" value="">
               </fieldset>
 
               <fieldset class="form-group">
                 <label>{{samples.common.common_name.label}}</label>
-                <em>{{samples.common.common_name.description}}</em>
+                <em>{{samples.common.common_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
                 <input type="text" class="form-control" ng-model="samples.common.common_name.value" placeholder="{{samples.common.common_name.placeholder}}" value="">
               </fieldset>
 
@@ -361,18 +361,18 @@
                   <fieldset class="form-group">
                     <label>{{sample.taxonID.label}}</label>
                     <em>{{sample.taxonID.description}}. Search for it at <a href="http://www.ncbi.nlm.nih.gov/taxonomy" frame="ncbi">http://www.ncbi.nlm.nih.gov/taxonomy</a></em>
-                    <input type="text" class="form-control" ng-model="sample.taxonID.value" placeholder="{{sample.taxonID.placeholder}}" value="">
+                    <input type="number" integer class="form-control" ng-model="sample.taxonID.value" placeholder="{{sample.taxonID.placeholder}}" ng-blur="samples.getTaxonData(sample)" value="">
                   </fieldset>
 
                   <fieldset class="form-group">
                     <label>{{sample.sci_name.label}}</label>
-                    <em>{{sample.sci_name.description}}</em>
+                    <em>{{sample.sci_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
                     <input type="text" class="form-control" ng-model="sample.sci_name.value" placeholder="{{sample.sci_name.placeholder}}" value="">
                   </fieldset>
 
                   <fieldset class="form-group">
                     <label>{{sample.common_name.label}}</label>
-                    <em>{{sample.common_name.description}}</em>
+                    <em>{{sample.common_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
                     <input type="text" class="form-control" ng-model="sample.common_name.value" placeholder="{{sample.common_name.placeholder}}" value="">
                   </fieldset>
 
