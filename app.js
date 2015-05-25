@@ -198,7 +198,6 @@
 
 
     // cross domain problems as usual - trying using a php proxy solution...
-    // self.getTaxonData = function(id) {
     self.getTaxonData = function(sample) {
       // var url = "http://www.ebi.ac.uk/ena/data/taxonomy/v1/taxon/tax-id/" + sample.taxonID.value; // If CORS would work, this would be enough. Use a php proxy instead.
       var url = "taxon_proxy.php?id=" + sample.taxonID.value;
@@ -292,7 +291,8 @@
           {
             tag: self.common.attributes[i].tag,
             value: self.common.attributes[i].value,
-            unit: self.common.attributes[i].unit
+            unit: self.common.attributes[i].unit,
+            description: self.common.attributes[i].description
           });
       };
 
