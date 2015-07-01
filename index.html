@@ -520,22 +520,144 @@
           </div>
         </div>
 
-        <div class="panel panel-info" id="common_metadata_table">
+
+        <!-- <div class="panel panel-info" id="common_metadata_table">
+          <div class="panel-heading">
+              <h3 class="panel-title">
+                <a data-toggle="collapse" href="#common_metadata_table_panel">
+                  Metadata common for all samples
+                </a>
+              </h3>
+
+          </div>
+          <div class="panel-body panel-collapse collapse in" id="common_metadata_table_panel">
+            <div ui-grid="sampleTable.gridOptions" ui-grid-edit ui-grid-cellNav ui-grid-expandable class="myGrid"></div>
+          </div>
+
+          Center Name: {{sampleTable.gridOptions.data[0].centerName.value}}
+        </div> -->
+
+        <!-- Common metadata panel -->
+        <div class="panel panel-info" id="common_metadata2">
           <div class="panel-heading">
               <h3 class="panel-title">
                 <!-- <a data-toggle="collapse" data-parent="#common_metadata" href="#common_metadata_form_panel"> -->
-                <a data-toggle="collapse" href="#common_metadata_table_panel">
+                <a data-toggle="collapse" href="#common_metadata_form_panel2">
                   Metadata common for all samples (click to expand)
                 </a>
               </h3>
 
           </div>
-          <div class="panel-body panel-collapse collapse" id="common_metadata_table_panel">
-            <div ui-grid="sampleTable.gridOptions" ui-grid-edit class="myGrid"></div>
-          </div>
-      </div> <!-- sample table -->
+          <div class="panel-body panel-collapse collapse" id="common_metadata_form_panel2">
+            <form name="sampleCommonForm">
 
-    </div> <!-- /container -->
+              <fieldset class="form-group">
+                <label>{{sampleTable.common.centerName.label}}</label>
+                <em>{{sampleTable.common.centerName.description}}</em>
+                <input type="text" class="form-control" ng-model="sampleTable.common.centerName.value" placeholder="{{sampleTable.common.centerName.placeholder}}" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{sampleTable.common.name.label}}</label>
+                <em>{{sampleTable.common.name.description}}</em>
+                <input type="text" class="form-control" ng-model="sampleTable.common.name.value" placeholder="{{sampleTable.common.name.placeholder}}" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{sampleTable.common.title.label}}</label>
+                <em>{{sampleTable.common.title.description}}</em>
+                <input type="text" class="form-control" ng-model="sampleTable.common.title.value" placeholder="{{sampleTable.common.title.placeholder}}" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{sampleTable.common.taxonID.label}}</label>
+                <em>{{sampleTable.common.taxonID.description}}. Search for it at <a href="http://www.ncbi.nlm.nih.gov/taxonomy" frame="ncbi">http://www.ncbi.nlm.nih.gov/taxonomy</a></em>
+                <input type="number" integer class="form-control" ng-model="sampleTable.common.taxonID.value" placeholder="{{sampleTable.common.taxonID.placeholder}}" ng-blur="sampleTable.getTaxonData(sampleTable.common)" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{sampleTable.common.sci_name.label}}</label>
+                <em>{{sampleTable.common.sci_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
+                <input type="text" class="form-control" ng-model="sampleTable.common.sci_name.value" placeholder="{{sampleTable.common.sci_name.placeholder}}" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{sampleTable.common.common_name.label}}</label>
+                <em>{{sampleTable.common.common_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
+                <input type="text" class="form-control" ng-model="sampleTable.common.common_name.value" placeholder="{{sampleTable.common.common_name.placeholder}}" value="">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label>{{sampleTable.common.description.label}}</label>
+                <em>{{sampleTable.common.description.description}}</em>
+                <input type="text" class="form-control" ng-model="sampleTable.common.description.value" placeholder="{{sampleTable.common.description.placeholder}}" value="">
+              </fieldset>
+
+              <!-- Optional tag-value pairs panel -->
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Optional common Sample attributes</h3>
+                </div>
+                <div class="panel-body">
+                  <p>
+                    <button type="button" class="btn btn-default" ng-click="sampleTable.loadChecklist(sampleTable.common)">
+                      <span class="glyphicon glyphicon-refresh"></span>
+                    </button>
+                    Load ENA default sample checklist (ERC000011)
+                  </p>
+                  <ng-form class="form-inline">
+                    <fieldset ng-repeat="attribute in sampleTable.common.attributes">
+                      <div class="form-group">
+                        <label>Tag</label>
+                        <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Value</label>
+                        <input type="text" class="form-control" ng-model="attribute.value" name="" value="">
+                      </div>
+                      <div class="form-group">
+                        <label>(Unit)</label>
+                        <input type="text" class="form-control" ng-model="attribute.unit" name="" value="">
+                      </div>
+                      <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="sampleTable.removeAttribute(sampleTable.common)" ng-hide="$first" ng-show="$last">
+                        <span class="glyphicon glyphicon-minus"></span>
+                      </button>
+
+                      <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="sampleTable.addNewAttribute(sampleTable.common)" ng-show="$last">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                      <span class="help-block" style="padding-left: 30px">{{attribute.description}}</span>
+                    </fieldset>
+                  </ng-form>
+                </div>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+
+
+        <div class="panel panel-success" id="samples_metadata_table">
+          <div class="panel-heading">
+              <h3 class="panel-title">
+                <!-- <a data-toggle="collapse" data-parent="#common_metadata" href="#common_metadata_form_panel"> -->
+                <a data-toggle="collapse" href="#samples_metadata_table_panel">
+                  Metadata for individual samples
+                </a>
+              </h3>
+
+          </div>
+          <div class="panel-body panel-collapse collapse in" id="samples_metadata_table_panel">
+            <div ui-grid="sampleTable.gridOptions" ui-grid-edit ui-grid-cellNav ui-grid-expandable class="myGrid"></div>
+          </div>
+          <!-- Center Name: {{sampleTable.gridOptions.data[0].centerName.value}} -->
+
+        </div>
+
+      </div> <!-- samples table page -->
+
+    </div> <!-- /container (for the whole shebang)-->
 
   </body><!-- /ng-app -->
 </html>
