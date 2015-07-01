@@ -1,5 +1,4 @@
 (function () {
-
   var app = angular.module('enaMetadata', ['ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.expandable']);
 
   // // will this work?
@@ -25,7 +24,9 @@
   }]);
 
   // StudyController
-  app.controller('StudyController', ['$scope', function ($scope) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+  app.controller('StudyController', ['$scope', function ($scope) {
+    // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+
     // this.items = studyItems;
     var self = this;
     self.centerName = {
@@ -93,7 +94,8 @@
     };
 
     self.saveXML = function () {
-      var pre_element = $('#pre-study-xml')[0]; // angular has added a child with the same id, so getting the first child
+      // angular has added a child with the same id, so getting the first child
+      var pre_element = $('#pre-study-xml')[0];
       var xml_text = pre_element.textContent || pre_element.innerText;
       var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
       saveAs(blob, 'study.xml');
@@ -139,7 +141,9 @@
   /* ------------------------------------------
    *   SamplesController
    * ------------------------------------------ */
-  app.controller('SamplesController', ['$scope', '$http', function ($scope, $http) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+  app.controller('SamplesController', ['$scope', '$http', function ($scope, $http) {
+    // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+
     // this.items = studyItems;
     var self = this;
 
@@ -299,7 +303,8 @@
     };
 
     self.saveXML = function () {
-      var pre_element = $('#pre-samples-xml')[0]; // angular has added a child with the same id, so getting the first child
+      // angular has added a child with the same id, so getting the first child
+      var pre_element = $('#pre-samples-xml')[0];
       var xml_text = pre_element.textContent || pre_element.innerText;
       var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
       saveAs(blob, 'sample.xml');
@@ -464,7 +469,9 @@
   /* ------------------------------------------
    *   SamplesTableController
    * ------------------------------------------ */
-  app.controller('SamplesTableController', ['$scope', '$http', function ($scope, $http) { // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+  app.controller('SamplesTableController', ['$scope', '$http', function ($scope, $http) {
+    // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+
     // this.items = studyItems;
     var self = this;
 
@@ -527,7 +534,8 @@
       },
       enableSorting: false,
       columnDefs: [
-        { name: 'Center name',
+        {
+          name: 'Center name',
           field: 'centerName.value',
           headerTooltip: 'The name of your institution as specified in your ENA user account',
           cellTooltip: true
@@ -535,15 +543,16 @@
           //   return $scope.rowRenderIndex>0;
           // }
         },
-        { name: 'Sample name',
+        {
+          name: 'Sample name',
           field: 'name.value',
           headerTooltip: 'A unique name for the sample'
         },
-        { name: 'Title', field: 'title.value' },
-        { name: 'TaxonId', field: 'taxonID.value', type: 'number' },
-        { name: 'Scientific name', field: 'sci_name.value' },
-        { name: 'Common name', field: 'common_name.value' },
-        { name: 'Description', field: 'description.value' }
+        {name: 'Title', field: 'title.value'},
+        {name: 'TaxonId', field: 'taxonID.value', type: 'number'},
+        {name: 'Scientific name', field: 'sci_name.value'},
+        {name: 'Common name', field: 'common_name.value'},
+        {name: 'Description', field: 'description.value'}
       ],
       data: [
         // { // object of data to show descriptions
@@ -760,7 +769,8 @@
     };
 
     self.saveXML = function () {
-      var pre_element = $('#pre-samples-xml')[0]; // angular has added a child with the same id, so getting the first child
+      // angular has added a child with the same id, so getting the first child
+      var pre_element = $('#pre-samples-xml')[0];
       var xml_text = pre_element.textContent || pre_element.innerText;
       var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
       saveAs(blob, 'sample.xml');
@@ -918,9 +928,9 @@
 
   }]); // app.controller - SamplesTableController
 
-/*
-================================================================================
-*/
+  /*
+  ==============================================================================
+  */
   app.directive('studyXml', function () {
     return {
       restrict: 'E',
