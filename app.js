@@ -197,44 +197,6 @@
 
     self.list = []; // list of samples and their data to be filled in
 
-    // A test checklist object for getting the ng-options right
-    self.testChecklist = {
-      ERC000004: {
-        name: "Genomic Standards Consortium defined Minimum Information about any(x) Sequence (GSC MIxS)",
-        desc: "This checklist contains all GSC approved terms for reporting of measurements and observations about environmental samples. Alternatively, by choosing an appropriate environmental package (listed below), a selection of fields can be made from a relevant subsets of the GSC terms.",
-        attributes: [
-          {
-            tag: "ENA-CHECKLIST",
-            value: "ERC000004"
-          },
-          {
-            description: "The time of sampling, either as an instance (single point in time) or interval. In case no exact time is available, the date/time can be right truncated i.e. all of these are valid times: 2008-01-23T19:23:10+00:00; 2008-01-23T19:23:10; 2008-01-23; 2008-01; 2008; Except: 2008-01; 2008 all are ISO8601 compliant",
-            group: "sample collection",
-            mandatory: "mandatory",
-            tag: "collection date",
-            val_type: "TEXT_VALUE"
-          }
-        ]
-      },
-      ERC000026: {
-        name: "EGA default checklist",
-        desc: "The minimum sample requirements for EGA",
-        attributes: [
-          {
-            tag: "ENA-CHECKLIST",
-            value: "ERC000026"
-          },
-          {
-            description: "Identifier for the subject where the sample has been derived from",
-            group: "default",
-            mandatory: "optional",
-            tag: "subject_id",
-            val_type: "TEXT_VALUE",
-          }
-        ]
-      }
-    };
-
     self.checklist = null;
     if(self.checklist === null) {
       var clUrl = 'checklist.xml';
