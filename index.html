@@ -239,7 +239,7 @@
               </h3>
 
           </div>
-          <div class="panel-body panel-collapse collapse" id="common_metadata_form_panel">
+          <div class="panel-body panel-collapse" id="common_metadata_form_panel">
             <form name="sampleCommonForm">
 
               <fieldset class="form-group">
@@ -291,10 +291,20 @@
                 </div>
                 <div class="panel-body">
                   <p>
+                    <!-- <select class="" name="">
+                      <option value=""></option>
+                    </select> -->
+                    <select ng-model="samples.common.selected_checklist" class="form-control" ng-options="checklist.name for (acc, checklist) in samples.checklist" name="">
+                    </select>
+                  </p>
+                  <p>
                     <button type="button" class="btn btn-default" ng-click="samples.loadChecklist(samples.common)">
                       <span class="glyphicon glyphicon-refresh"></span>
                     </button>
-                    Load ENA default sample checklist (ERC000011)
+                    Load checklist: <strong>{{samples.common.selected_checklist.acc}}</strong> {{samples.common.selected_checklist.name}}
+                  </p>
+                  <p class="help-block">
+                    {{samples.common.selected_checklist.description}}
                   </p>
                   <ng-form class="form-inline">
                     <fieldset ng-repeat="attribute in samples.common.attributes">
