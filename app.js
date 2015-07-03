@@ -286,8 +286,6 @@
       });
     };
 
-
-
     self.addNewAttribute = function(sample) {
       sample.attributes.push({tag: "", value: ""});
     };
@@ -302,17 +300,6 @@
     };
 
     self.loadChecklist = function(sample) {
-      // old code when there was only one checklist in a json file
-      // if (!sample.attributes[0].tag) { sample.attributes = []; } // clear array if it only contains one empty attribute
-      // $http.get("ERC000011.json").then(function(response){
-      //   var attrs = response.data;
-      //   for (var i = 0; i < attrs.length; i++) {
-      //     sample.attributes.push(
-      //       attrs[i]
-      //     );
-      //   }
-      // });
-
       sample.attributes = sample.selected_checklist.attributes;
     };
 
