@@ -191,11 +191,126 @@
       },
       attributes: [
         {tag: "", value: "", unit: ""}
-      ]
+      ],
+      selected_checklist: {}
     };
 
     self.list = []; // list of samples and their data to be filled in
 
+    // A test checklist object for getting the ng-options right
+    self.testChecklist = {
+      ERC000004: {
+        name: "Genomic Standards Consortium defined Minimum Information about any(x) Sequence (GSC MIxS)",
+        desc: "This checklist contains all GSC approved terms for reporting of measurements and observations about environmental samples. Alternatively, by choosing an appropriate environmental package (listed below), a selection of fields can be made from a relevant subsets of the GSC terms.",
+        attributes: [
+          {
+            tag: "ENA-CHECKLIST",
+            value: "ERC000004"
+          },
+          {
+            description: "The time of sampling, either as an instance (single point in time) or interval. In case no exact time is available, the date/time can be right truncated i.e. all of these are valid times: 2008-01-23T19:23:10+00:00; 2008-01-23T19:23:10; 2008-01-23; 2008-01; 2008; Except: 2008-01; 2008 all are ISO8601 compliant",
+            group: "sample collection",
+            mandatory: "mandatory",
+            tag: "collection date",
+            val_type: "TEXT_VALUE"
+          }
+        ]
+      },
+      ERC000026: {
+        name: "EGA default checklist",
+        desc: "The minimum sample requirements for EGA",
+        attributes: [
+          {
+            tag: "ENA-CHECKLIST",
+            value: "ERC000026"
+          },
+          {
+            description: "Identifier for the subject where the sample has been derived from",
+            group: "default",
+            mandatory: "optional",
+            tag: "subject_id",
+            val_type: "TEXT_VALUE",
+          }
+        ]
+      }
+    };
+
+    self.checklist = null;
+    if(self.checklist === null) {
+      var clUrl = 'checklist.xml';
+      $http.get(clUrl).then(function(response) {
+        var clContent = response.data;
+        self.checklist = {};
+        var clXmlDoc = $.parseXML(clContent);
+        var $clXml = $(clXmlDoc);
+        var cls = $clXml.find("CHECKLIST");
+        cls.each(function() {
+          var clType = $(this).find("CHECKLIST_TYPE").text(); // Should be sample or ERC000011, ERC000028, ERC000029, ERC0000XX
+          var acc = $(this).attr("accession");
+          // Filter out non-sample checklists
+          if (clType !== 'sample' && acc !== 'ERC000011' && acc !== 'ERC000028' && acc !== 'ERC000029' && acc !== 'ERC0000XX') {
+          // if (acc !== 'ERC0000XX') { // used when debugging
+            return;
+          };
+          var clName = $(this).find("CHECKLIST_NAME").text().replace(/\s+/g, ' ');
+          var clDesc = $(this).find("CHECKLIST_DESCRIPTION").text().replace(/\s+/g, ' ');
+          var tmpCl = {
+            acc: acc,
+            name: clName,
+            description: clDesc,
+            attributes: [
+              {
+                tag: "ENA-CHECKLIST",
+                value: acc
+              }
+            ]
+          };
+          // get attributes
+          var groups = $(this).find("CHECKLIST_GROUP");
+          groups.each(function() {
+            var group = $(this).find("GROUP").text();
+            var attrs = $(this).find("CHECKLIST_ATTRIBUTE");
+            attrs.each(function() {
+              var tmpAttr = {
+                tag: $(this).find("TAG").text(),
+                description: $(this).find("DESCRIPTION").text().replace(/\s+/g, ' '),
+                group: group,
+                mandatory: $(this).find("MANDATORY").text()
+              };
+              // get value type for attribute
+              if ($(this).find("TEXT_VALUE").length > 0) {
+                tmpAttr.val_type = "TEXT_VALUE";
+              } else if ($(this).find("TEXT_CHOICE").length > 0) {
+                tmpAttr.val_type = "TEXT_CHOICE";
+                var choice = $(this).find("TEXT_CHOICE");
+                var vals = choice.find("VALUE");
+                tmpAttr.text_choices = [];
+                vals.each(function() {
+                  var ch = $(this).text();
+                  tmpAttr.text_choices.push(ch);
+                });
+              } else if ($(this).find("REGEXP_VALUE").length > 0) {
+                tmpAttr.val_type = "REGEXP_VALUE";
+                tmpAttr.regexp = $(this).find("REGEXP_VALUE").text();
+              }
+
+              // get units (if any)
+              var units = $(this).find("UNIT");
+              if (units.length > 0) {
+                tmpAttr.units = [];
+                units.each(function () {
+                  var u = $(this).text();
+                  tmpAttr.units.push(u);
+                });
+              }
+              tmpCl.attributes.push(tmpAttr);
+            });
+          });
+          self.checklist[acc] = tmpCl;
+        });
+        // console.log(self.checklist);
+      });
+    };
 
     // cross domain problems as usual - trying using a php proxy solution...
     self.getTaxonData = function(sample) {
@@ -208,6 +323,8 @@
         sample.common_name.value = response.data.commonName;
       });
     };
+
+
 
     self.addNewAttribute = function(sample) {
       sample.attributes.push({tag: "", value: ""});
@@ -223,15 +340,18 @@
     };
 
     self.loadChecklist = function(sample) {
-      if (!sample.attributes[0].tag) { sample.attributes = []; } // clear array if it only contains one empty attribute
-      $http.get("ERC000011.json").then(function(response){
-        var attrs = response.data;
-        for (var i = 0; i < attrs.length; i++) {
-          sample.attributes.push(
-            attrs[i]
-          );
-        }
-      });
+      // old code when there was only one checklist in a json file
+      // if (!sample.attributes[0].tag) { sample.attributes = []; } // clear array if it only contains one empty attribute
+      // $http.get("ERC000011.json").then(function(response){
+      //   var attrs = response.data;
+      //   for (var i = 0; i < attrs.length; i++) {
+      //     sample.attributes.push(
+      //       attrs[i]
+      //     );
+      //   }
+      // });
+
+      sample.attributes = sample.selected_checklist.attributes;
     };
 
     self.filterEmptyAttributes = function(element) {
