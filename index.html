@@ -291,18 +291,22 @@
                 </div>
                 <div class="panel-body">
                   <p>
+                    Select a pre-defined checklist from the dropdown menu, or create your own by adding attributes using the <span class="glyphicon glyphicon-plus"></span> button
+                  </p>
+                  <p>
                     <!-- <select class="" name="">
                       <option value=""></option>
                     </select> -->
-                    <select ng-model="samples.common.selected_checklist" class="form-control" ng-options="checklist.name for (acc, checklist) in samples.checklist" name="">
+                    <select ng-model="samples.common.selected_checklist" class="form-control" ng-options="checklist.name for (acc, checklist) in samples.checklist" ng-change="samples.loadChecklist(samples.common)">
                     </select>
                   </p>
-                  <p>
-                    <button type="button" class="btn btn-default" ng-click="samples.loadChecklist(samples.common)">
+                  <!-- <p> -->
+                    <!-- <button type="button" class="btn btn-default" ng-click="samples.loadChecklist(samples.common)">
                       <span class="glyphicon glyphicon-refresh"></span>
-                    </button>
-                    Load checklist: <strong>{{samples.common.selected_checklist.acc}}</strong> {{samples.common.selected_checklist.name}}
-                  </p>
+                    </button> -->
+                    <!-- Load checklist: -->
+                    <!-- <strong>{{samples.common.selected_checklist.acc}}</strong> {{samples.common.selected_checklist.name}} -->
+                  <!-- </p> -->
                   <p class="help-block">
                     {{samples.common.selected_checklist.description}}
                   </p>
@@ -316,9 +320,10 @@
                         <label>Value</label>
                         <input type="text" class="form-control" ng-model="attribute.value" name="" value="">
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
                         <label>(Unit)</label>
-                        <input type="text" class="form-control" ng-model="attribute.unit" name="" value="">
+                        <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
+                        <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
                       </div>
                       <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(samples.common, attribute)" ng-hide="$first" ng-show="$last">
                         <span class="glyphicon glyphicon-minus"></span>
@@ -407,13 +412,12 @@
                       <h3 class="panel-title">Optional Sample attributes</h3>
                     </div>
                     <div class="panel-body">
-                      <!--  FIX! Checklist loading didn't work on individual sample-->
-                      <p>
+                      <!-- <p>
                         <button type="button" class="btn btn-default" ng-click="samples.loadChecklist()">
                           <span class="glyphicon glyphicon-refresh"></span>
                         </button>
                         Load ENA default sample checklist (ERC000011)
-                      </p>
+                      </p> -->
                       <ng-form class="form-inline">
                         <fieldset ng-repeat="attribute in sample.attributes">
                           <div class="form-group">
@@ -424,10 +428,18 @@
                             <label>Value</label>
                             <input type="text" class="form-control" ng-model="attribute.value" name="" value="">
                           </div>
-                          <div class="form-group">
+
+                          <!-- <div class="form-group">
                             <label>(Unit)</label>
                             <input type="text" class="form-control" ng-model="attribute.unit" name="" value="">
+                          </div> -->
+
+                          <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
+                            <label>(Unit)</label>
+                            <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
+                            <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
                           </div>
+
                           <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(sample, attribute)">
                             <span class="glyphicon glyphicon-minus"></span>
                           </button>
