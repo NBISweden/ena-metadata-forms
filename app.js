@@ -97,8 +97,8 @@
       // angular has added a child with the same id, so getting the first child
       var pre_element = $('#pre-study-xml')[0];
       var xml_text = pre_element.textContent || pre_element.innerText;
-      var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
-      saveAs(blob, 'study.xml');
+      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
+      saveAs(blob, "study.xml");
     };
 
     self.parseXML = function () {
@@ -200,44 +200,6 @@
 
     self.list = []; // list of samples and their data to be filled in
 
-    // A test checklist object for getting the ng-options right
-    self.testChecklist = {
-      ERC000004: {
-        name: "Genomic Standards Consortium defined Minimum Information about any(x) Sequence (GSC MIxS)",
-        desc: "This checklist contains all GSC approved terms for reporting of measurements and observations about environmental samples. Alternatively, by choosing an appropriate environmental package (listed below), a selection of fields can be made from a relevant subsets of the GSC terms.",
-        attributes: [
-          {
-            tag: "ENA-CHECKLIST",
-            value: "ERC000004"
-          },
-          {
-            description: "The time of sampling, either as an instance (single point in time) or interval. In case no exact time is available, the date/time can be right truncated i.e. all of these are valid times: 2008-01-23T19:23:10+00:00; 2008-01-23T19:23:10; 2008-01-23; 2008-01; 2008; Except: 2008-01; 2008 all are ISO8601 compliant",
-            group: "sample collection",
-            mandatory: "mandatory",
-            tag: "collection date",
-            val_type: "TEXT_VALUE"
-          }
-        ]
-      },
-      ERC000026: {
-        name: "EGA default checklist",
-        desc: "The minimum sample requirements for EGA",
-        attributes: [
-          {
-            tag: "ENA-CHECKLIST",
-            value: "ERC000026"
-          },
-          {
-            description: "Identifier for the subject where the sample has been derived from",
-            group: "default",
-            mandatory: "optional",
-            tag: "subject_id",
-            val_type: "TEXT_VALUE",
-          }
-        ]
-      }
-    };
-
     self.checklist = null;
     if(self.checklist === null) {
       var clUrl = 'checklist.xml';
@@ -254,7 +216,7 @@
           if (clType !== 'sample' && acc !== 'ERC000011' && acc !== 'ERC000028' && acc !== 'ERC000029' && acc !== 'ERC0000XX') {
           // if (acc !== 'ERC0000XX') { // used when debugging
             return;
-          };
+          }
           var clName = $(this).find("CHECKLIST_NAME").text().replace(/\s+/g, ' ');
           var clDesc = $(this).find("CHECKLIST_DESCRIPTION").text().replace(/\s+/g, ' ');
           var tmpCl = {
@@ -313,7 +275,7 @@
         });
         // console.log(self.checklist);
       });
-    };
+    }
 
     // cross domain problems as usual - trying using a php proxy solution...
     self.getTaxonData = function (sample) {
@@ -326,8 +288,6 @@
         sample.common_name.value = response.data.commonName;
       });
     };
-
-
 
     self.addNewAttribute = function(sample) {
       sample.attributes.push({tag: "", value: ""});
@@ -343,17 +303,6 @@
     };
 
     self.loadChecklist = function(sample) {
-      // old code when there was only one checklist in a json file
-      // if (!sample.attributes[0].tag) { sample.attributes = []; } // clear array if it only contains one empty attribute
-      // $http.get("ERC000011.json").then(function(response){
-      //   var attrs = response.data;
-      //   for (var i = 0; i < attrs.length; i++) {
-      //     sample.attributes.push(
-      //       attrs[i]
-      //     );
-      //   }
-      // });
-
       sample.attributes = sample.selected_checklist.attributes;
     };
 
@@ -409,14 +358,14 @@
       };
 
       // Add attributes
-      for (var i = 0; i < self.common.attributes.length; i++) {
-        tmp.attributes.push(
-          {
-            tag: self.common.attributes[i].tag,
-            value: self.common.attributes[i].value,
-            unit: self.common.attributes[i].unit,
-            description: self.common.attributes[i].description
-          });
+      for (var i=0; i<self.common.attributes.length; i++) {
+        var newAttr = {};
+        for (var k in self.common.attributes[i]) {
+          if (self.common.attributes[i].hasOwnProperty(k)) {
+            newAttr[k] = self.common.attributes[i][k];
+          }
+        }
+        tmp.attributes.push(newAttr);
       }
 
       self.list.push(tmp);
@@ -427,8 +376,8 @@
       // angular has added a child with the same id, so getting the first child
       var pre_element = $('#pre-samples-xml')[0];
       var xml_text = pre_element.textContent || pre_element.innerText;
-      var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
-      saveAs(blob, 'sample.xml');
+      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
+      saveAs(blob, "sample.xml");
     };
 
     self.parseXML = function () {
@@ -450,9 +399,9 @@
             var attrs = [];
             attr_nodes.each(function () {
               attrs.push({
-                tag: $(this).find('TAG').text(),
-                value: $(this).find('VALUE').text(),
-                unit: $(this).find('UNIT').text()
+                tag: $(this).find("TAG").text(),
+                value: $(this).find("VALUE").text(),
+                unit: $(this).find("UNIT").text()
               });
             });
 
