@@ -90,14 +90,14 @@
 
     self.noAttributes = function() {
       return;
-    }
+    };
 
     self.saveXML = function() {
       var pre_element = $("#pre-study-xml")[0]; // angular has added a child with the same id, so getting the first child
       var xml_text = pre_element.textContent || pre_element.innerText;
-      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});;
+      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
       saveAs(blob, "study.xml");
-    }
+    };
 
     self.parseXML = function () {
 
@@ -213,7 +213,7 @@
           if (clType !== 'sample' && acc !== 'ERC000011' && acc !== 'ERC000028' && acc !== 'ERC000029' && acc !== 'ERC0000XX') {
           // if (acc !== 'ERC0000XX') { // used when debugging
             return;
-          };
+          }
           var clName = $(this).find("CHECKLIST_NAME").text().replace(/\s+/g, ' ');
           var clDesc = $(this).find("CHECKLIST_DESCRIPTION").text().replace(/\s+/g, ' ');
           var tmpCl = {
@@ -272,7 +272,7 @@
         });
         // console.log(self.checklist);
       });
-    };
+    }
 
     // cross domain problems as usual - trying using a php proxy solution...
     self.getTaxonData = function(sample) {
@@ -399,7 +399,7 @@
                 tag: $(this).find("TAG").text(),
                 value: $(this).find("VALUE").text(),
                 unit: $(this).find("UNIT").text()
-              })
+              });
             });
 
             var newSample = self.createSample (
@@ -436,8 +436,8 @@
             self.common[field].unique = false;
             self.common[field].value = "";
           }
-        };
-      };
+        }
+      }
 
       // Now the attributes
       for (var i = 0; i < sample.attributes.length; i++) {
@@ -464,7 +464,7 @@
             value: curr_attr.value,
             unit: curr_attr.unit,
             unique: true
-          }
+          };
           self.common.attributes.push(new_attr);
         }
       }
