@@ -356,25 +356,25 @@
 
       // Add attributes
       for (var i=0; i<self.common.attributes.length; i++) {
-        tmp.attributes.push(
-          {
-            tag: self.common.attributes[i].tag,
-            value: self.common.attributes[i].value,
-            unit: self.common.attributes[i].unit,
-            description: self.common.attributes[i].description
-          });
-      };
+        var newAttr = {};
+        for (var k in self.common.attributes[i]) {
+          if (self.common.attributes[i].hasOwnProperty(k)) {
+            newAttr[k] = self.common.attributes[i][k];
+          }
+        }
+        tmp.attributes.push(newAttr);
+      }
 
       self.list.push(tmp);
 
-    }
+    };
 
     self.saveXML = function() {
       var pre_element = $("#pre-samples-xml")[0]; // angular has added a child with the same id, so getting the first child
       var xml_text = pre_element.textContent || pre_element.innerText;
-      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});;
+      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
       saveAs(blob, "sample.xml");
-    }
+    };
 
     self.parseXML = function () {
       var input = $("#uploadSampleInput")[0].files[0];
