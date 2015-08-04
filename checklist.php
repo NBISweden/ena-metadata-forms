@@ -1,7 +1,7 @@
 <?php
 	// Debugging stuff
-	ini_set('display_errors', 'On');
-	error_reporting(E_ALL | E_STRICT);
+	// ini_set('display_errors', 'On');
+	// error_reporting(E_ALL | E_STRICT);
 
 	$checklist_url = "ftp://ftp.sra.ebi.ac.uk/meta/xml/checklist.xml";
 	$ch = curl_init($checklist_url);
