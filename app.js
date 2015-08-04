@@ -445,8 +445,10 @@
         if(self.common.attributes[0].tag === "") { self.common.attributes = []; }
 
         var curr_attr = sample.attributes[i];
-        var cmp_attr;
-        if ( cmp_attr = self.isInCommonAttributes(curr_attr) ) { // tags will be equal
+        // if tags are equal cmp_attr will be set to the existing common attribute
+        // otherwise to false
+        var cmp_attr = self.isInCommonAttributes(curr_attr);
+        if (cmp_attr) { // there is already a common attribute with this tag
           if (cmp_attr.unique === undefined) {
             if (cmp_attr.value === curr_attr.value) {
               cmp_attr.unique = true;
