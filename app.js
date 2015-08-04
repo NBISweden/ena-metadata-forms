@@ -3,7 +3,7 @@
 
   // // will this work?
   // // leave for now
-  // app.config(function($httpProvider) {
+  // app.config(function ($httpProvider) {
   //     //Enable cross domain calls
   //     $httpProvider.defaults.useXDomain = true;
   // });
@@ -97,8 +97,8 @@
       // angular has added a child with the same id, so getting the first child
       var pre_element = $('#pre-study-xml')[0];
       var xml_text = pre_element.textContent || pre_element.innerText;
-      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
-      saveAs(blob, "study.xml");
+      var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
+      saveAs(blob, 'study.xml');
     };
 
     self.parseXML = function () {
@@ -141,10 +141,9 @@
   /* ------------------------------------------
    *   SamplesController
    * ------------------------------------------ */
-  app.controller('SamplesController', ['$scope', '$http', function ($scope, $http) {
+  app.controller('SamplesController', ['$scope','$http',function ($scope, $http) {
     // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
 
-    // this.items = studyItems;
     var self = this;
 
     // self.field_names = [ 'centerName', 'name', 'title'];
@@ -193,7 +192,7 @@
         placeholder: 'Sample from ...'
       },
       attributes: [
-        {tag: "", value: "", unit: ""}
+        {tag: '', value: '', unit: ''}
       ],
       selected_checklist: {}
     };
@@ -201,66 +200,70 @@
     self.list = []; // list of samples and their data to be filled in
 
     self.checklist = null;
-    if(self.checklist === null) {
+    if (self.checklist === null) {
       var clUrl = 'checklist.xml';
-      $http.get(clUrl).then(function(response) {
+      $http.get(clUrl).then(function (response) {
         var clContent = response.data;
         self.checklist = {};
         var clXmlDoc = $.parseXML(clContent);
         var $clXml = $(clXmlDoc);
-        var cls = $clXml.find("CHECKLIST");
-        cls.each(function() {
-          var clType = $(this).find("CHECKLIST_TYPE").text(); // Should be sample or ERC000011, ERC000028, ERC000029, ERC0000XX
-          var acc = $(this).attr("accession");
+        var cls = $clXml.find('CHECKLIST');
+        cls.each(function () {
+          // CHECKLIST_TYPE should be sample or ERC000011, ERC000028, ERC000029, ERC0000XX
+          var clType = $(this).find('CHECKLIST_TYPE').text();
+          var acc = $(this).attr('accession');
           // Filter out non-sample checklists
-          if (clType !== 'sample' && acc !== 'ERC000011' && acc !== 'ERC000028' && acc !== 'ERC000029' && acc !== 'ERC0000XX') {
-          // if (acc !== 'ERC0000XX') { // used when debugging
+          if (clType !== 'sample' &&
+              acc !== 'ERC000011' &&
+              acc !== 'ERC000028' &&
+              acc !== 'ERC000029' &&
+              acc !== 'ERC0000XX') {
             return;
           }
-          var clName = $(this).find("CHECKLIST_NAME").text().replace(/\s+/g, ' ');
-          var clDesc = $(this).find("CHECKLIST_DESCRIPTION").text().replace(/\s+/g, ' ');
+          var clName = $(this).find('CHECKLIST_NAME').text().replace(/\s+/g, ' ');
+          var clDesc = $(this).find('CHECKLIST_DESCRIPTION').text().replace(/\s+/g, ' ');
           var tmpCl = {
             acc: acc,
             name: clName,
             description: clDesc,
             attributes: [
               {
-                tag: "ENA-CHECKLIST",
+                tag: 'ENA-CHECKLIST',
                 value: acc
               }
             ]
           };
           // get attributes
-          var groups = $(this).find("CHECKLIST_GROUP");
-          groups.each(function() {
-            var group = $(this).find("GROUP").text();
-            var attrs = $(this).find("CHECKLIST_ATTRIBUTE");
-            attrs.each(function() {
+          var groups = $(this).find('CHECKLIST_GROUP');
+          groups.each(function () {
+            var group = $(this).find('GROUP').text();
+            var attrs = $(this).find('CHECKLIST_ATTRIBUTE');
+            attrs.each(function () {
               var tmpAttr = {
-                tag: $(this).find("TAG").text(),
-                description: $(this).find("DESCRIPTION").text().replace(/\s+/g, ' '),
+                tag: $(this).find('TAG').text(),
+                description: $(this).find('DESCRIPTION').text().replace(/\s+/g, ' '),
                 group: group,
-                mandatory: $(this).find("MANDATORY").text()
+                mandatory: $(this).find('MANDATORY').text()
               };
               // get value type for attribute
-              if ($(this).find("TEXT_VALUE").length > 0) {
-                tmpAttr.val_type = "TEXT_VALUE";
-              } else if ($(this).find("TEXT_CHOICE").length > 0) {
-                tmpAttr.val_type = "TEXT_CHOICE";
-                var choice = $(this).find("TEXT_CHOICE");
-                var vals = choice.find("VALUE");
+              if ($(this).find('TEXT_VALUE').length > 0) {
+                tmpAttr.val_type = 'TEXT_VALUE';
+              } else if ($(this).find('TEXT_CHOICE').length > 0) {
+                tmpAttr.val_type = 'TEXT_CHOICE';
+                var choice = $(this).find('TEXT_CHOICE');
+                var vals = choice.find('VALUE');
                 tmpAttr.text_choices = [];
-                vals.each(function() {
+                vals.each(function () {
                   var ch = $(this).text();
                   tmpAttr.text_choices.push(ch);
                 });
-              } else if ($(this).find("REGEXP_VALUE").length > 0) {
-                tmpAttr.val_type = "REGEXP_VALUE";
-                tmpAttr.regexp = $(this).find("REGEXP_VALUE").text();
+              } else if ($(this).find('REGEXP_VALUE').length > 0) {
+                tmpAttr.val_type = 'REGEXP_VALUE';
+                tmpAttr.regexp = $(this).find('REGEXP_VALUE').text();
               }
 
               // get units (if any)
-              var units = $(this).find("UNIT");
+              var units = $(this).find('UNIT');
               if (units.length > 0) {
                 tmpAttr.units = [];
                 units.each(function () {
@@ -289,8 +292,8 @@
       });
     };
 
-    self.addNewAttribute = function(sample) {
-      sample.attributes.push({tag: "", value: ""});
+    self.addNewAttribute = function (sample) {
+      sample.attributes.push({tag: '', value: ''});
     };
 
     self.removeAttribute = function (sample, attribute) {
@@ -302,7 +305,7 @@
       // sample.attributes.splice(lastItem);
     };
 
-    self.loadChecklist = function(sample) {
+    self.loadChecklist = function (sample) {
       sample.attributes = sample.selected_checklist.attributes;
     };
 
@@ -358,7 +361,7 @@
       };
 
       // Add attributes
-      for (var i=0; i<self.common.attributes.length; i++) {
+      for (var i = 0; i < self.common.attributes.length; i++) {
         var newAttr = {};
         for (var k in self.common.attributes[i]) {
           if (self.common.attributes[i].hasOwnProperty(k)) {
@@ -376,8 +379,8 @@
       // angular has added a child with the same id, so getting the first child
       var pre_element = $('#pre-samples-xml')[0];
       var xml_text = pre_element.textContent || pre_element.innerText;
-      var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
-      saveAs(blob, "sample.xml");
+      var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
+      saveAs(blob, 'sample.xml');
     };
 
     self.parseXML = function () {
@@ -399,13 +402,13 @@
             var attrs = [];
             attr_nodes.each(function () {
               attrs.push({
-                tag: $(this).find("TAG").text(),
-                value: $(this).find("VALUE").text(),
-                unit: $(this).find("UNIT").text()
+                tag: $(this).find('TAG').text(),
+                value: $(this).find('VALUE').text(),
+                unit: $(this).find('UNIT').text()
               });
             });
 
-            var newSample = self.createSample(
+            var newSample = self.createSample (
               $(this).attr('center_name'), // centerName
               $(this).attr('alias'),  // name
               $(this).find('TITLE').text(), // title
