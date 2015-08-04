@@ -201,7 +201,7 @@
 
     self.checklist = null;
     if (self.checklist === null) {
-      var clUrl = 'checklist.xml';
+      var clUrl = 'checklist.php';
       $http.get(clUrl).then(function (response) {
         var clContent = response.data;
         self.checklist = {};
@@ -213,13 +213,16 @@
           var clType = $(this).find('CHECKLIST_TYPE').text();
           var acc = $(this).attr('accession');
           // Filter out non-sample checklists
+          // Sample checklists either has a CHECKLIST_TYPE of 'sample', or
+          // are one of a set of known sample checklists
+          // NB! It is sloppy of the EBI not to include CHECKLIST_TYPE for all checklists
           if (clType !== 'sample' &&
-              acc !== 'ERC000011' &&
-              acc !== 'ERC000028' &&
-              acc !== 'ERC000029' &&
-              acc !== 'ERC0000XX') {
-            return;
-          }
+              acc !== 'ERC000011' && // ENA default sample checklist
+              acc !== 'ERC000028' && // ENA prokaryotic pathogen minimal sample checklist
+              acc !== 'ERC000029' && // ENA GMI Report
+              acc !== 'ERC000032')   // ENA Influenza virus reporting standard checklist
+              { return; }
+
           var clName = $(this).find('CHECKLIST_NAME').text().replace(/\s+/g, ' ');
           var clDesc = $(this).find('CHECKLIST_DESCRIPTION').text().replace(/\s+/g, ' ');
           var tmpCl = {
