@@ -504,7 +504,7 @@
         taxonID: {
           label: 'Organism Taxon ID',
           description: 'Provide NCBI taxon_id for organism (e.g. 9606 for human)',
-          value: taxID,
+          value: parseInt(taxID, 10),
           placeholder: '9606'
         },
         sci_name: {
