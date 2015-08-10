@@ -332,7 +332,7 @@
                       <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(samples.common)" ng-show="$last">
                         <span class="glyphicon glyphicon-plus"></span>
                       </button>
-                      <span class="help-block" style="padding-left: 30px">{{attribute.description}}</span>
+                      <span class="help-block" ng-switch="attribute.description.length>0" style="padding-left: 30px"><strong>{{attribute.group}}</strong><span ng-switch-when="true"> – </span>{{attribute.description}} <span ng-switch-when="true">(<strong><em>{{attribute.mandatory}}</em></strong>)</span></span>
                     </fieldset>
                   </ng-form>
                 </div>
@@ -447,7 +447,7 @@
                           <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(sample)" ng-show="$last">
                             <span class="glyphicon glyphicon-plus"></span>
                           </button>
-                          <span class="help-block" style="padding-left: 30px">{{attribute.description}}</span>
+                          <span class="help-block" ng-switch="attribute.description.length>0" style="padding-left: 30px"><strong>{{attribute.group}}</strong><span ng-switch-when="true"> – </span>{{attribute.description}} <span ng-switch-when="true">(<strong><em>{{attribute.mandatory}}</em></strong>)</span></span>
                         </fieldset>
                       </ng-form>
                     </div>
