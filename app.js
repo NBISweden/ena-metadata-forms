@@ -248,6 +248,12 @@
                 group: group,
                 mandatory: $(this).find('MANDATORY').text()
               };
+              // Special case for EGA default checklist
+              // add description for the phenotype attribute
+              if (acc === 'ERC000026' && tmpAttr.tag === 'phenotype') {
+                tmpAttr.description = 'Where possible, use the Experimental Factor Ontology (EFO; http://www.ebi.ac.uk/efo/) to describe your phenotypes. Add the EFO accession in the Unit field (e.g. EFO:0000182). Add more than one phenotype attribute if needed';
+              }
+
               // get value type for attribute
               if ($(this).find('TEXT_VALUE').length > 0) {
                 tmpAttr.val_type = 'TEXT_VALUE';
