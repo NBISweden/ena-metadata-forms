@@ -11,12 +11,12 @@
             &lt;COMMON_NAME&gt;{{sample.common_name.value}}&lt;/COMMON_NAME&gt;
         &lt;/SAMPLE_NAME&gt;
         &lt;DESCRIPTION&gt;{{sample.description.value}}&lt;/DESCRIPTION&gt;
-        &lt;SAMPLE_ATTRIBUTES&gt;<div ng-repeat="attribute in sample.attributes | filter: samples.filterEmptyAttributes">
+        &lt;SAMPLE_ATTRIBUTES&gt;<span ng-repeat="attribute in sample.attributes | filter: samples.filterEmptyAttributes">
             &lt;SAMPLE_ATTRIBUTE&gt;
                 &lt;TAG&gt;{{attribute.tag}}&lt;/TAG&gt;
-                &lt;VALUE&gt;{{attribute.value}}&lt;/VALUE&gt;
-                &lt;UNITS&gt;{{attribute.unit}}&lt;/UNITS&gt;
-            &lt;/SAMPLE_ATTRIBUTE&gt;</div>
+                &lt;VALUE&gt;{{attribute.value}}&lt;/VALUE&gt;<span ng-if="!attribute.unit==''" >
+                &lt;UNITS&gt;{{attribute.unit}}&lt;/UNITS&gt;</span>
+            &lt;/SAMPLE_ATTRIBUTE&gt;</span>
         &lt;/SAMPLE_ATTRIBUTES&gt;
     &lt;/SAMPLE&gt; </div>
 &lt;/SAMPLE_SET&gt;
