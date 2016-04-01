@@ -24,7 +24,9 @@
     };
   }]);
 
-  // StudyController
+  /* ------------------------------------------
+   *   StudyController
+   * ------------------------------------------ */
   app.controller('StudyController', ['$scope',function ($scope) {
     // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
     // this.items = studyItems;
