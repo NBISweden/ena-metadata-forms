@@ -551,6 +551,13 @@
 
   }]); // app.controller - SamplesController
 
+  /* ------------------------------------------
+   *   AnalysisController
+   * ------------------------------------------ */
+  app.controller('AnalysisController', ['$scope',function ($scope)  {
+
+  }]); // app.controller - AnalysisController
+
   app.directive('studyXml', function () {
     return {
       restrict: 'E',
@@ -562,6 +569,13 @@
     return {
       restrict: 'E',
       templateUrl: 'samples-xml.html'
+    };
+  });
+
+  app.directive('analysisXml', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'analysis-xml.html'
     };
   });
 
