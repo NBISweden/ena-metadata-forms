@@ -2,32 +2,38 @@
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;ANALYSIS_SET&gt;
 	&lt;ANALYSIS
-	  alias="{{analysis.shortName.value}}"
-	  center_name="{{analysis.centerName.value|uppercase}}"&gt;
+		alias="{{analysis.shortName.value}}"
+		center_name="{{analysis.centerName.value|uppercase}}"&gt;
 		&lt;TITLE&gt;{{analysis.title.value}}&lt;/TITLE&gt;
 		&lt;DESCRIPTION&gt;{{analysis.description.value}}&lt;/DESCRIPTION&gt;
 		&lt;STUDY_REF
-		  refname="{{analysis.studyRefName.value}}"
-		  refcenter="{{analysis.studyCenterName.value|uppercase}}" /&gt;
+			refname="{{analysis.studyReferenceName.value}}"
+			refcenter="{{analysis.studyReferenceCenterName.value|uppercase}}" /&gt;
 		&lt;SAMPLE_REF
-		  refname="{{analysis.studyRefName.value}}"
-		  refcenter="{{analysis.sampleCenterName.value|uppercase}}" /&gt;
+			refname="{{analysis.sampleReferenceName.value}}"
+			refcenter="{{analysis.sampleReferenceCenterName.value|uppercase}}" /&gt;
 		&lt;ANALYSIS_TYPE&gt;
 			&lt;SEQUENCE_ASSEMBLY&gt;
-				&lt;NAME&gt;{{analysis.assemblyName.value}}&lt;/NAME&gt;
-				&lt;PARTIAL&gt;{{analysis.assemblyPartial.value}}&lt;/PARTIAL&gt;
-				&lt;COVERAGE&gt;{{analysis.assemblyCoverage.value}}&lt;/COVERAGE&gt;
-				&lt;PROGRAM&gt;{{analysis.assemblyProgram.value}}&lt;/PROGRAM&gt;
-				&lt;PLATFORM&gt;{{analysis.assemblyPlatform.value}}&lt;/PLATFORM&gt;
+				&lt;NAME&gt;{{analysis.shortName.value}}&lt;/NAME&gt;
+				&lt;PARTIAL&gt;{{analysis.partial.value}}&lt;/PARTIAL&gt;
+				&lt;COVERAGE&gt;{{analysis.coverage.value}}&lt;/COVERAGE&gt;
+				&lt;PROGRAM&gt;{{analysis.program.value}}&lt;/PROGRAM&gt;
+				&lt;PLATFORM&gt;{{analysis.platform.value}}&lt;/PLATFORM&gt;
 			&lt;/SEQUENCE_ASSEMBLY&gt;
 		&lt;/ANALYSIS_TYPE&gt;
 		&lt;FILES&gt;
 			&lt;FILE
-			  filename="{{analysis.fileName.value}}"
-			  filetype="{{analysis.fileType.value}}"
-			  checksum_method="MD5"
-			  checksum="{{analysis.fileChecksum.value}}" /&gt;
-		&lt;/FILES&gt;
+				filename="{{analysis.assemblyFileName.value}}"
+				filetype="{{analysis.assemblyFileType.value}}"
+				checksum_method="MD5"
+				checksum="{{analysis.assemblyFileChecksum.value}}" /&gt;
+		&lt;/FILES&gt;<div ng-show="!analysis.analysisAttributes[0].tag==''" >
+		&lt;ANALYSIS_ATTRIBUTES&gt;  <div ng-repeat="analysisAttribute in analysis.analysisAttributes">
+			&lt;ANALYSIS_ATTRIBUTE&gt;
+				&lt;TAG&gt;{{analysisAttribute.tag}}&lt;/TAG&gt;
+				&lt;VALUE&gt;{{analysisAttribute.value}}&lt;/VALUE&gt;
+			&lt;/ANALYSIS_ATTRIBUTE&gt;</div>
+		&lt;/ANALYSIS_ATTRIBUTES&gt;</div>
 	&lt;/ANALYSIS&gt;
 &lt;/ANALYSIS_SET&gt;
 </pre>
