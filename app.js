@@ -729,6 +729,11 @@
                 value: $(this).find('VALUE').text()
               });
           });
+          if (self.analysisAttributes.length === 0){
+            self.analysisAttributes = [
+              {tag: '', value: ''}
+            ];
+          }
         });
       };
 
