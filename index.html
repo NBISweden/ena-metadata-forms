@@ -59,8 +59,11 @@
           <li ng-class="{ active: content.isSelected(2) }">
             <a href ng-click="content.selectTab(2)">Samples</a>
           </li>
-          <li ng-class="{ active: content.isSelected(3) }">
-            <a href ng-click="content.selectTab(3)">Assembly analysis</a>
+          <!-- <li ng-class="{ active: content.isSelected(3) }">
+            <a href ng-click="content.selectTab(3)">Samples grid</a>
+          </li> -->
+          <li ng-class="{ active: content.isSelected(4) }">
+            <a href ng-click="content.selectTab(4)">Assembly analysis</a>
           </li>
         </ul>
       </div>
@@ -495,7 +498,7 @@
       <!-- ******************************* -->
       <!-- Analysis meta data form content -->
       <!-- ******************************* -->
-      <div ng-controller="AnalysisController as analysis" ng-show="content.isSelected(3)">
+      <div ng-controller="AnalysisController as analysis" ng-show="content.isSelected(4)">
         <!-- Instructions panel -->
         <div class="panel panel-default">
           <div class="panel-heading">
