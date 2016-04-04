@@ -709,8 +709,8 @@
           self.description.value = $xml.find('DESCRIPTION').text();
           self.studyReferenceName.value = $xml.find('STUDY_REF').attr('refname');
           self.studyReferenceCenterName.value = $xml.find('STUDY_REF').attr('refcenter');
-          self.sampleReferenceName.value = $xml.find('STUDY_REF').attr('refname');
-          self.sampleReferenceCenterName.value = $xml.find('STUDY_REF').attr('refcenter');
+          self.sampleReferenceName.value = $xml.find('SAMPLE_REF').attr('refname');
+          self.sampleReferenceCenterName.value = $xml.find('SAMPLE_REF').attr('refcenter');
           self.partial.value = $xml.find('PARTIAL').text();
           self.coverage.value = parseInt($xml.find('COVERAGE').text(), 10); // Has to be a numeric value
           self.program.value = $xml.find('PROGRAM').text();
