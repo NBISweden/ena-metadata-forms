@@ -554,6 +554,187 @@
    *   AnalysisController
    * ------------------------------------------ */
   app.controller('AnalysisController', ['$scope',function ($scope)  {
+    // passing in $scope to be able to call $scope.apply() in parseXML() to update data bindings
+    // this.items = studyItems;
+    var self = this;
+    self.centerName = {
+      label: 'Center name',
+      description: 'The name of your institution as specified in your ENA user account',
+      value: '',
+      placeholder: ''
+    };
+
+    self.shortName = {
+      label: 'Short name',
+      description: 'A short unique descriptive name for the assembly',
+      value: ''
+    };
+
+    self.title = {
+      label: 'Title',
+      description: 'A short title of the assembly',
+      value: ''
+    };
+
+    self.description = {
+      label: 'Description',
+      description: 'A short description of the assembly',
+      value: ''
+    };
+
+    self.studyReferenceName = {
+      label: 'Study reference name',
+      description: 'The unique short name of the study',
+      value: ''
+    };
+
+    self.studyReferenceCenterName = {
+      label: 'Study reference Center name',
+      description: 'The name of the institution used when submitting the Study',
+      value: ''
+    };
+
+    self.sampleReferenceName = {
+      label: 'Sample reference name',
+      description: 'The unique short name of the sample',
+      value: ''
+    };
+
+    self.sampleReferenceCenterName = {
+      label: 'Sample reference Center name',
+      description: 'The name of the institution used when submitting the Sample',
+      value: ''
+    };
+
+    self.partial = {
+      label: 'Partial',
+      description: 'If the assembly is partial or not',
+      options: [
+        'true',
+        'false'
+      ],
+      value: ''
+    };
+
+    self.coverage = {
+      label: 'Coverage',
+      description: 'Numeric sequencing coverage',
+      value: ''
+    };
+
+    self.program = {
+      label: 'Assembly program',
+      description: 'Program used to generate the assembly and version',
+      value: ''
+    };
+
+    self.platform = {
+      label: 'Sequencing platform',
+      description: 'Sequencing platform used to generate the sequencing data, e.g. Illumina',
+      value: ''
+    };
+
+    self.assemblyFileName = {
+      label: 'Assembly file name',
+      description: 'Name of the assembly file. Should be a compressed file',
+      value: ''
+    };
+
+    self.assemblyFileType = {
+      label: 'Assembly file type',
+      description: 'For an embl formated file, choose a flatfile format',
+      options: [
+        'contig_flatfile',
+        'scaffold_flatfile',
+        'chromosome_flatfile',
+        'contig_fasta',
+        'scaffold_fasta',
+        'chromosome_fasta',
+        'scaffold_agp',
+        'chromosome_agp',
+        'chromosome_list',
+        'unlocalised_contig_list',
+        'unlocalised_scaffold_list'
+      ],
+      value: ''
+    };
+
+    self.assemblyFileChecksum = {
+      label: 'Assembly file MD5 checksum',
+      description: 'MD5 checksum of the assembly file',
+      value: ''
+    };
+
+    self.analysisAttributes = [
+      {tag: '', value: ''}
+    ];
+
+    self.addNewAttribute = function () {
+      self.analysisAttributes.push({tag: '', value: ''});
+    };
+
+    self.removeAttribute = function () {
+      var lastItem = self.studyAttributes.length - 1;
+      self.analysisAttributes.splice(lastItem);
+    };
+
+    self.noAttributes = function () {
+      return;
+    };
+
+    self.saveXML = function () {
+      // angular has added a child with the same id, so getting the first child
+      var pre_element = $('#pre-analysis-xml')[0];
+      var xml_text = pre_element.textContent || pre_element.innerText;
+      var blob = new Blob([xml_text], {type: 'text/xml;charset=utf-8'});
+      saveAs(blob, 'analysis.xml');
+    };
+
+    self.parseXML = function () {
+
+      var input = $('#uploadAnalysisInput')[0].files[0];
+      var reader = new FileReader();
+      var content;
+
+      reader.onload = function (e) {
+        var content = reader.result;
+
+        var xmlDoc = $.parseXML(content); // using jquery to parse the xml string
+        var $xml = $(xmlDoc);
+
+        $scope.$apply(function () { // to update bindings
+          self.centerName.value = $xml.find('ANALYSIS').attr('center_name');
+          self.shortName.value = $xml.find('ANALYSIS').attr('alias');
+          self.title.value = $xml.find('TITLE').text();
+          self.description.value = $xml.find('DESCRIPTION').text();
+          self.studyReferenceName.value = $xml.find('STUDY_REF').attr('refname');
+          self.studyReferenceCenterName.value = $xml.find('STUDY_REF').attr('refcenter');
+          self.sampleReferenceName.value = $xml.find('STUDY_REF').attr('refname');
+          self.sampleReferenceCenterName.value = $xml.find('STUDY_REF').attr('refcenter');
+          self.partial.value = $xml.find('PARTIAL').text();
+          self.coverage.value = parseInt($xml.find('COVERAGE').text(), 10); // Has to be a numeric value
+          self.program.value = $xml.find('PROGRAM').text();
+          self.platform.value = $xml.find('PLATFORM').text();
+
+          self.assemblyFileName.value = $xml.find('FILE').attr('filename');
+          self.assemblyFileType.value = $xml.find('FILE').attr('filetype');
+          self.assemblyFileChecksum.value = $xml.find('FILE').attr('checksum');
+
+          self.analysisAttributes = [];
+          var attributes = $xml.find('ANALYSIS_ATTRIBUTES');
+          attributes.each(function () {
+            self.analysisAttributes.push(
+              {
+                tag: $(this).find('TAG').text(),
+                value: $(this).find('VALUE').text()
+              });
+          });
+        });
+      };
+
+      reader.readAsText(input, 'UTF-8');
+
+    };
 
   }]); // app.controller - AnalysisController
 
