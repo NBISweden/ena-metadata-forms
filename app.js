@@ -13,7 +13,7 @@
   app.controller('ContentController', ['$scope', function ($scope) { // remove scope?
     var self = this;
 
-    self.tab = 3; // sets start tab: 1 - Study, 2 - Sample, 3 - Assembly analysis
+    self.tab = 1; // sets start tab: 1 - Study, 2 - Sample, 3 - Assembly analysis
 
     self.selectTab = function (setTab) {
       this.tab = setTab;
