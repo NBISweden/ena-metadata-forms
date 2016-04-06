@@ -1,5 +1,5 @@
 # Readme
-This is a web-based form for generating [Study][] and [Sample][] metadata XML files for [programmatic submissions][] to EBI databases.
+This is a web-based form for generating [Study][], [Sample][], and [Assembly Analysis][] metadata XML files for [programmatic submissions][] to EBI databases.
 
 Generated XML can be saved to local files. Previously saved XML files can also be re-loaded into the form.
 
@@ -23,6 +23,7 @@ _None at the moment_
 
 [Study]: http://www.ebi.ac.uk/ena/submit/preparing-xmls#study
 [Sample]: http://www.ebi.ac.uk/ena/submit/preparing-xmls#sample
+[Assembly Analysis]: http://www.ebi.ac.uk/ena/submit/preparing-xmls#assembly_submissions_example
 [programmatic submissions]: http://www.ebi.ac.uk/ena/submit/programmatic-submission
 [PHP]: https://secure.php.net/
 [AngularJS]: https://angularjs.org/
