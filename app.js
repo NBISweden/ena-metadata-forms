@@ -211,42 +211,38 @@
         var $clXml = $(clXmlDoc);
         var cls = $clXml.find('CHECKLIST');
         cls.each(function () {
-          // CHECKLIST_TYPE should be sample or ERC000011, ERC000028, ERC000029, ERC0000XX
-          var clType = $(this).find('CHECKLIST_TYPE').text();
+          // checklistType should be Sample
+          var clType = $(this).attr('checklistType');
           var acc = $(this).attr('accession');
-          // Filter out non-sample checklists
-          // Sample checklists either has a CHECKLIST_TYPE of 'sample', or
-          // are one of a set of known sample checklists
-          // NB! It is sloppy of the EBI not to include CHECKLIST_TYPE for all checklists
-          if (clType !== 'sample' &&
-              acc !== 'ERC000011' && // ENA default sample checklist
-              acc !== 'ERC000028' && // ENA prokaryotic pathogen minimal sample checklist
-              acc !== 'ERC000029' && // ENA GMI Report
-              acc !== 'ERC000032')   // ENA Influenza virus reporting standard checklist
-              { return; }
 
-          var clName = $(this).find('CHECKLIST_NAME').text().replace(/\s+/g, ' ');
-          var clDesc = $(this).find('CHECKLIST_DESCRIPTION').text().replace(/\s+/g, ' ');
+          // Filter out non-sample checklists
+          if (clType !== 'Sample') { return; }
+
+          var clDescriptor = $(this).children('DESCRIPTOR');
+          var clName = clDescriptor.children('NAME').text().replace(/\s+/g, ' ');
+          var clDesc = clDescriptor.children('DESCRIPTION').text().replace(/\s+/g, ' ');
+          var clAuth = clDescriptor.children('AUTHORITY');
+
           var tmpCl = {
             acc: acc,
             name: clName,
             description: clDesc,
             attributes: [
               {
-                tag: 'ENA-CHECKLIST',
+                tag: clAuth.text() + '-CHECKLIST',
                 value: acc
               }
             ]
           };
           // get attributes
-          var groups = $(this).find('CHECKLIST_GROUP');
+          var groups = $(this).find('FIELD_GROUP');
           groups.each(function () {
-            var group = $(this).find('GROUP').text();
-            var attrs = $(this).find('CHECKLIST_ATTRIBUTE');
+            var group = $(this).children('NAME').text();
+            var attrs = $(this).children('FIELD');
             attrs.each(function () {
               var tmpAttr = {
-                tag: $(this).find('TAG').text(),
-                description: $(this).find('DESCRIPTION').text().replace(/\s+/g, ' '),
+                tag: $(this).find('LABEL').text(),
+                description: $(this).children('DESCRIPTION').text().replace(/\s+/g, ' '),
                 group: group,
                 mandatory: $(this).find('MANDATORY').text()
               };
@@ -259,20 +255,20 @@
               }
 
               // get value type for attribute
-              if ($(this).find('TEXT_VALUE').length > 0) {
-                tmpAttr.val_type = 'TEXT_VALUE';
-              } else if ($(this).find('TEXT_CHOICE').length > 0) {
-                tmpAttr.val_type = 'TEXT_CHOICE';
-                var choice = $(this).find('TEXT_CHOICE');
+              if ($(this).find('TEXT_FIELD').length > 0) {
+                tmpAttr.val_type = 'TEXT_FIELD';
+              } else if ($(this).find('TEXT_CHOICE_FIELD').length > 0) {
+                tmpAttr.val_type = 'TEXT_CHOICE_FIELD';
+                var choice = $(this).find('TEXT_CHOICE_FIELD');
                 var vals = choice.find('VALUE');
                 tmpAttr.text_choices = [];
                 vals.each(function () {
                   var ch = $(this).text();
                   tmpAttr.text_choices.push(ch);
                 });
-              } else if ($(this).find('REGEXP_VALUE').length > 0) {
-                tmpAttr.val_type = 'REGEXP_VALUE';
-                tmpAttr.regexp = $(this).find('REGEXP_VALUE').text();
+              } else if ($(this).find('REGEX_VALUE').length > 0) {
+                tmpAttr.val_type = 'REGEX_VALUE';
+                tmpAttr.regexp = $(this).find('REGEX_VALUE').text();
               }
 
               // get units (if any)

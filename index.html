@@ -326,12 +326,14 @@
                         <label>Tag</label>
                         <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" ng-switch="attribute.text_choices.length>0"> <!-- test if there are text choices defined -->
                         <label>Value</label>
-                        <input type="text" class="form-control" ng-model="attribute.value" name="" value="">
+                        <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.value" name="" value="">
+                        <select ng-switch-when="true" ng-model="attribute.value" class="form-control" ng-options="choice for choice in attribute.text_choices" name=""></select>
                       </div>
                       <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
-                        <label>(Unit)</label>
+                        <label ng-switch-when="true">Unit</label>
+                        <label ng-switch-when="false">(Unit)</label>
                         <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
                         <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
                       </div>
@@ -434,18 +436,16 @@
                             <label>Tag</label>
                             <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
                           </div>
-                          <div class="form-group">
+
+                          <div class="form-group" ng-switch="attribute.text_choices.length>0"> <!-- test if there are text choices defined -->
                             <label>Value</label>
-                            <input type="text" class="form-control" ng-model="attribute.value" name="" value="">
+                            <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.value" name="" value="">
+                            <select ng-switch-when="true" ng-model="attribute.value" class="form-control" ng-options="choice for choice in attribute.text_choices" name=""></select>
                           </div>
 
-                          <!-- <div class="form-group">
-                            <label>(Unit)</label>
-                            <input type="text" class="form-control" ng-model="attribute.unit" name="" value="">
-                          </div> -->
-
                           <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
-                            <label>(Unit)</label>
+                            <label ng-switch-when="true">Unit</label>
+                            <label ng-switch-when="false">(Unit)</label>
                             <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
                             <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
                           </div>
