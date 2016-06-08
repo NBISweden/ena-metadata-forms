@@ -35,7 +35,7 @@
       label: 'Center name',
       description: 'The name of your institution as specified in your ENA user account',
       value: '',
-      placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+      placeholder: ''
     };
 
     self.shortName = {
@@ -155,7 +155,7 @@
         label: 'Center name',
         description: 'The name of your institution as specified in your ENA user account',
         value: '',
-        placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+        placeholder: ''
       },
       name: {
         label: 'Sample name',
@@ -327,7 +327,7 @@
           label: 'Center name',
           description: 'The name of your institution as specified in your ENA user account',
           value: self.common.centerName.value,
-          placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+          placeholder: ''
         },
         name: {
           label: 'Sample name',
@@ -502,7 +502,7 @@
           label: 'Center name',
           description: 'The name of your institution as specified in your ENA user account',
           value: center,
-          placeholder: 'BIOINFORMATICS INFRASTRUCTURE FOR LIFE SCIENCES'
+          placeholder: ''
         },
         name: {
           label: 'Sample name',
