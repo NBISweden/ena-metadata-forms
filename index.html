@@ -50,646 +50,644 @@
   <body>
     <div ng-app="enaMetadata">
       <div class="container" ng-controller="ContentController as content">
-      <h1>ENA submission information forms</h1>
+        <h1>ENA submission information forms</h1>
 
-      <div >
-        <ul class="nav nav-tabs">
-          <li ng-class="{ active: content.isSelected(1) }">
-            <a href ng-click="content.selectTab(1)">Study</a>
-          </li>
-          <li ng-class="{ active: content.isSelected(2) }">
-            <a href ng-click="content.selectTab(2)">Samples</a>
-          </li>
-          <!-- <li ng-class="{ active: content.isSelected(3) }">
-            <a href ng-click="content.selectTab(3)">Samples grid</a>
-          </li> -->
-          <li ng-class="{ active: content.isSelected(4) }">
-            <a href ng-click="content.selectTab(4)">Assembly analysis</a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- **************************** -->
-      <!-- Study meta data form content -->
-      <!-- **************************** -->
-      <div ng-controller="StudyController as study" ng-show="content.isSelected(1)">
-        <!-- Instructions panel -->
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Instructions</h3>
-          </div>
-          <div class="panel-body">
-            <p>
-              Add the information needed to define the Study in the form below.
-              When you are done you can download the information in an XML file
-              (see <em>Output XML</em> section below).
-            </p>
-            <p>
-              Alternatively, you can upload the information using a previously saved file:
-            </p>
-            <form class="form-inline">
-              <fieldset>
-                <div class="form-group">
-                  <label for="uploadStudyInput">Select XML file</label>
-                  <input id="uploadStudyInput" type="file" name="studyFile" accept=".xml">
-                </div>
-                <div class="form-group">
-                  <label for="fillStudyForm">
-                    Insert info in file to
-                  </label><br>
-                  <button type="button"
-                          name="fillStudyForm"
-                          class="btn btn-default"
-                          ng-click="study.parseXML()">
-                            <span class="glyphicon glyphicon-refresh"></span>
-                            Fill form
-                  </button>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <!-- Mandatory metadata panel -->
-        <div class="panel panel-success">
-          <div class="panel-heading">
-              <h3 class="panel-title">Study metadata</h3>
-          </div>
-          <div class="panel-body">
-            <form name="studyRequiredForm">
-
-              <fieldset class="form-group">
-                <label>{{study.centerName.label}}</label>
-                <em>{{study.centerName.description}}</em>
-                <input type="text" class="form-control" ng-model="study.centerName.value" name="{{study.centerName.label}}" placeholder="{{study.centerName.placeholder}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{study.shortName.label}}</label>
-                <em>{{study.shortName.description}}</em>
-                <input type="text" class="form-control" ng-model="study.shortName.value" name="{{study.shortName.label}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{study.title.label}}</label>
-                <em>{{study.title.description}}</em>
-                <input type="text" class="form-control" ng-model="study.title.value" name="{{study.title.label}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{study.studyType.label}}</label>
-                <!-- <input type="text" class="form-control" ng-model="title.value" name="{{studyType.label}}" value=""> -->
-                <select ng-model="study.studyType.value" class="form-control" ng-options="option for option in study.studyType.options" name="{{study.studyType.label}}">
-                </select>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{study.abstract.label}}</label>
-                <em>{{study.abstract.description}}</em>
-                <textarea class="form-control" ng-model="study.abstract.value" name="{{study.abstract.label}}" value="" required></textarea>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <!-- Optional tag-value pairs panel -->
-        <div class="panel panel-warning">
-          <div class="panel-heading">
-            <h3 class="panel-title">Optional Study attributes</h3>
-          </div>
-          <div class="panel-body">
-            <form class="form-inline">
-              <fieldset ng-repeat="studyAttribute in study.studyAttributes">
-                <div class="form-group">
-                  <label>Tag</label>
-                  <!-- set model & name--><input type="text" class="form-control" ng-model="studyAttribute.tag" name="" value="">
-                </div>
-                <div class="form-group">
-                  <label>Value</label>
-                  <input type="text" class="form-control" ng-model="studyAttribute.value" name="" value="">
-                </div>
-                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="study.removeAttribute()" ng-hide="$first" ng-show="$last">
-                  <span class="glyphicon glyphicon-minus"></span>
-                </button>
-
-                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="study.addNewAttribute()" ng-show="$last">
-                  <span class="glyphicon glyphicon-plus"></span>
-                </button>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <!-- Output XML panel -->
-        <div class="panel panel-info">
-          <div class="panel-heading clearfix">
-            <!-- <span class="caret"></span> -->
-            <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
-            <button type="button"
-              class="btn btn-default btn-sm pull-right"
-              ng-click="study.saveXML()"
-              ng-disabled="studyRequiredForm.$invalid">
-                <span class="glyphicon glyphicon-save-file"></span> Save XML to file
-            </button>
-          </div>
-          <div class="panel-body">
-            <study-xml></study-xml> <!-- This is an angular custom directive -->
-          </div>
+        <div >
+          <ul class="nav nav-tabs">
+            <li ng-class="{ active: content.isSelected(1) }">
+              <a href ng-click="content.selectTab(1)">Study</a>
+            </li>
+            <li ng-class="{ active: content.isSelected(2) }">
+              <a href ng-click="content.selectTab(2)">Samples</a>
+            </li>
+            <!-- <li ng-class="{ active: content.isSelected(3) }">
+              <a href ng-click="content.selectTab(3)">Samples grid</a>
+            </li> -->
+            <li ng-class="{ active: content.isSelected(4) }">
+              <a href ng-click="content.selectTab(4)">Assembly analysis</a>
+            </li>
+          </ul>
         </div>
 
-      </div> <!-- /study -->
-
-      <!-- ****************************** -->
-      <!-- Samples meta data form content -->
-      <!-- ****************************** -->
-      <div ng-controller="SamplesController as samples" ng-show="content.isSelected(2)">
-        <!-- Instructions panel -->
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Instructions</h3>
-          </div>
-          <div class="panel-body">
-              <ol>
-                <li>Start by adding information that is common for all or most
-                  samples in the <em>Metadata common for all samples</em> section.</li>
-                <li>Then add indivdual samples (using the 'Add sample' button).
-                  The information common for all fields will then be pre-filled for
-                the individual samples.</li>
-                <li>When you want to save the information you can download the information in an XML file
-                (see <em>Output XML</em> section below).</li>
-              </ol>
-            <p>
-              Alternatively, you can upload the information using a previously saved file:
-            </p>
-            <form class="form-inline">
-              <fieldset>
-                <div class="form-group">
-                  <label for="uploadSampleInput">Select XML file</label>
-                  <input id="uploadSampleInput" type="file" name="sampleFile" accept=".xml">
-                </div>
-                <div class="form-group">
-                  <label for="fillStudyForm">
-                    Insert info in file to
-                  </label><br>
-                  <button type="button"
-                          name="fillSampleForm"
-                          class="btn btn-default"
-                          ng-click="samples.parseXML()">
-                            <span class="glyphicon glyphicon-refresh"></span>
-                            Fill form
-                  </button>
-                </div>
-              </fieldset>
-            </form>
-          </div>
-        </div>
-        <!-- Common metadata panel -->
-        <div class="panel panel-info" id="common_metadata">
-          <div class="panel-heading">
-              <h3 class="panel-title">
-                <!-- <a data-toggle="collapse" data-parent="#common_metadata" href="#common_metadata_form_panel"> -->
-                <a data-toggle="collapse" href="#common_metadata_form_panel">
-                  Metadata common for all samples (click to expand)
-                </a>
-              </h3>
-
-          </div>
-          <div class="panel-body panel-collapse" id="common_metadata_form_panel">
-            <form name="sampleCommonForm">
-
-              <fieldset class="form-group">
-                <label>{{samples.common.centerName.label}}</label>
-                <em>{{samples.common.centerName.description}}</em>
-                <input type="text" class="form-control" ng-model="samples.common.centerName.value" placeholder="{{samples.common.centerName.placeholder}}" value="">
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{samples.common.name.label}}</label>
-                <em>{{samples.common.name.description}}</em>
-                <input type="text" class="form-control" ng-model="samples.common.name.value" placeholder="{{samples.common.name.placeholder}}" value="">
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{samples.common.title.label}}</label>
-                <em>{{samples.common.title.description}}</em>
-                <input type="text" class="form-control" ng-model="samples.common.title.value" placeholder="{{samples.common.title.placeholder}}" value="">
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{samples.common.taxonID.label}}</label>
-                <em>{{samples.common.taxonID.description}}. Search for it at <a href="http://www.ncbi.nlm.nih.gov/taxonomy" frame="ncbi">http://www.ncbi.nlm.nih.gov/taxonomy</a></em>
-                <input type="number" integer class="form-control" ng-model="samples.common.taxonID.value" placeholder="{{samples.common.taxonID.placeholder}}" ng-blur="samples.getTaxonData(samples.common)" value="">
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{samples.common.sci_name.label}}</label>
-                <em>{{samples.common.sci_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
-                <input type="text" class="form-control" ng-model="samples.common.sci_name.value" placeholder="{{samples.common.sci_name.placeholder}}" value="">
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{samples.common.common_name.label}}</label>
-                <em>{{samples.common.common_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
-                <input type="text" class="form-control" ng-model="samples.common.common_name.value" placeholder="{{samples.common.common_name.placeholder}}" value="">
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{samples.common.description.label}}</label>
-                <em>{{samples.common.description.description}}</em>
-                <input type="text" class="form-control" ng-model="samples.common.description.value" placeholder="{{samples.common.description.placeholder}}" value="">
-              </fieldset>
-
-              <!-- Optional tag-value pairs panel -->
-              <div class="panel panel-warning">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Optional common Sample attributes</h3>
-                </div>
-                <div class="panel-body">
-                  <p>
-                    Select a pre-defined checklist from the dropdown menu, or create your own by adding attributes using the <span class="glyphicon glyphicon-plus"></span> button
-                  </p>
-                  <p>
-                    <!-- <select class="" name="">
-                      <option value=""></option>
-                    </select> -->
-                    <select ng-model="samples.common.selected_checklist" class="form-control" ng-options="checklist.name for (acc, checklist) in samples.checklist" ng-change="samples.loadChecklist(samples.common)">
-                    </select>
-                  </p>
-                  <!-- <p> -->
-                    <!-- <button type="button" class="btn btn-default" ng-click="samples.loadChecklist(samples.common)">
-                      <span class="glyphicon glyphicon-refresh"></span>
-                    </button> -->
-                    <!-- Load checklist: -->
-                    <!-- <strong>{{samples.common.selected_checklist.acc}}</strong> {{samples.common.selected_checklist.name}} -->
-                  <!-- </p> -->
-                  <p class="help-block">
-                    {{samples.common.selected_checklist.description}}
-                  </p>
-                  <ng-form class="form-inline">
-                    <fieldset ng-repeat="attribute in samples.common.attributes">
-                      <div class="form-group">
-                        <label>Tag</label>
-                        <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
-                      </div>
-                      <div class="form-group" ng-switch="attribute.text_choices.length>0"> <!-- test if there are text choices defined -->
-                        <label>Value</label>
-                        <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.value" name="" value="">
-                        <select ng-switch-when="true" ng-model="attribute.value" class="form-control" ng-options="choice for choice in attribute.text_choices" name=""></select>
-                      </div>
-                      <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
-                        <label ng-switch-when="true">Unit</label>
-                        <label ng-switch-when="false">(Unit)</label>
-                        <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
-                        <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
-                      </div>
-                      <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(samples.common, attribute)" ng-hide="$first" ng-show="$last">
-                        <span class="glyphicon glyphicon-minus"></span>
-                      </button>
-
-                      <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(samples.common)" ng-show="$last">
-                        <span class="glyphicon glyphicon-plus"></span>
-                      </button>
-                      <span class="help-block" ng-switch="attribute.description.length>0" style="padding-left: 30px"><strong>{{attribute.group}}</strong><span ng-switch-when="true"> – </span>{{attribute.description}} <span ng-switch-when="true">(<strong><em>{{attribute.mandatory}}</em></strong>)</span></span>
-                    </fieldset>
-                  </ng-form>
-                </div>
-              </div>
-
-
-            </form>
-          </div>
-        </div>
-
-
-        <!-- Individual Samples metadata -->
-        <div class="panel panel-success">
-          <div class="panel-heading">
-            <a data-toggle="collapse" href="#samples_form_panel">
-              <h3 class="panel-title">Metadata for individual samples</h3>
-            </a>
-          </div>
-          <div class="panel-body panel-collapse collapse in" id="samples_form_panel">
-
-
-            <div class="panel panel-info" ng-repeat="sample in samples.list" > <!-- nested panels for each sample-->
-              <div class="panel-heading">
-                <a data-toggle="collapse" href="#sample{{$index}}">
-                  <h3 class="panel-title">Sample {{$index + 1}}</h3>
-                </a>
-              </div>
-              <div class="panel-body panel-collapse collapse in" id="sample{{$index}}">
-                <form name="sampleIndividualForm">
-
-                  <fieldset class="form-group">
-                    <label>{{sample.centerName.label}}</label>
-                    <em>{{sample.centerName.description}}</em>
-                    <input type="text" class="form-control" ng-model="sample.centerName.value" placeholder="{{sample.centerName.placeholder}}" ng-bind="samples.common.centerName.value" value="">
-                    <!-- <input type="text" class="form-control" ng-model="samples.common.centerName.value" placeholder="{{sample.centerName.placeholder}}" data-ng-bind="samples.common.centerName.value" value=""> -->
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label>{{sample.name.label}}</label>
-                    <em>{{sample.name.description}}</em>
-                    <input type="text" class="form-control" ng-model="sample.name.value" placeholder="{{sample.name.placeholder}}" value="">
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label>{{sample.title.label}}</label>
-                    <em>{{sample.title.description}}</em>
-                    <input type="text" class="form-control" ng-model="sample.title.value" placeholder="{{sample.title.placeholder}}" value="">
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label>{{sample.taxonID.label}}</label>
-                    <em>{{sample.taxonID.description}}. Search for it at <a href="http://www.ncbi.nlm.nih.gov/taxonomy" frame="ncbi">http://www.ncbi.nlm.nih.gov/taxonomy</a></em>
-                    <input type="number" integer class="form-control" ng-model="sample.taxonID.value" placeholder="{{sample.taxonID.placeholder}}" ng-blur="samples.getTaxonData(sample)" value="">
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label>{{sample.sci_name.label}}</label>
-                    <em>{{sample.sci_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
-                    <input type="text" class="form-control" ng-model="sample.sci_name.value" placeholder="{{sample.sci_name.placeholder}}" value="">
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label>{{sample.common_name.label}}</label>
-                    <em>{{sample.common_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
-                    <input type="text" class="form-control" ng-model="sample.common_name.value" placeholder="{{sample.common_name.placeholder}}" value="">
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label>{{sample.description.label}}</label>
-                    <em>{{sample.description.description}}</em>
-                    <input type="text" class="form-control" ng-model="sample.description.value" placeholder="{{sample.description.placeholder}}" value="">
-                  </fieldset>
-
-                  <!-- Optional tag-value pairs panel -->
-                  <div class="panel panel-warning">
-                    <div class="panel-heading">
-                      <h3 class="panel-title">Optional Sample attributes</h3>
-                    </div>
-                    <div class="panel-body">
-                      <!-- <p>
-                        <button type="button" class="btn btn-default" ng-click="samples.loadChecklist()">
-                          <span class="glyphicon glyphicon-refresh"></span>
-                        </button>
-                        Load ENA default sample checklist (ERC000011)
-                      </p> -->
-                      <ng-form class="form-inline">
-                        <fieldset ng-repeat="attribute in sample.attributes">
-                          <div class="form-group">
-                            <label>Tag</label>
-                            <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
-                          </div>
-
-                          <div class="form-group" ng-switch="attribute.text_choices.length>0"> <!-- test if there are text choices defined -->
-                            <label>Value</label>
-                            <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.value" name="" value="">
-                            <select ng-switch-when="true" ng-model="attribute.value" class="form-control" ng-options="choice for choice in attribute.text_choices" name=""></select>
-                          </div>
-
-                          <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
-                            <label ng-switch-when="true">Unit</label>
-                            <label ng-switch-when="false">(Unit)</label>
-                            <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
-                            <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
-                          </div>
-
-                          <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(sample, attribute)">
-                            <span class="glyphicon glyphicon-minus"></span>
-                          </button>
-
-                          <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(sample)" ng-show="$last">
-                            <span class="glyphicon glyphicon-plus"></span>
-                          </button>
-                          <span class="help-block" ng-switch="attribute.description.length>0" style="padding-left: 30px"><strong>{{attribute.group}}</strong><span ng-switch-when="true"> – </span>{{attribute.description}} <span ng-switch-when="true">(<strong><em>{{attribute.mandatory}}</em></strong>)</span></span>
-                        </fieldset>
-                      </ng-form>
-                    </div>
+        <!-- **************************** -->
+        <!-- Study meta data form content -->
+        <!-- **************************** -->
+        <div ng-controller="StudyController as study" ng-show="content.isSelected(1)">
+          <!-- Instructions panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Instructions</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                Add the information needed to define the Study in the form below.
+                When you are done you can download the information in an XML file
+                (see <em>Output XML</em> section below).
+              </p>
+              <p>
+                Alternatively, you can upload the information using a previously saved file:
+              </p>
+              <form class="form-inline">
+                <fieldset>
+                  <div class="form-group">
+                    <label for="uploadStudyInput">Select XML file</label>
+                    <input id="uploadStudyInput" type="file" name="studyFile" accept=".xml">
                   </div>
-
-
-                </form>
-              </div>
+                  <div class="form-group">
+                    <label for="fillStudyForm">
+                      Insert info in file to
+                    </label><br>
+                    <button type="button"
+                            name="fillStudyForm"
+                            class="btn btn-default"
+                            ng-click="study.parseXML()">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                              Fill form
+                    </button>
+                  </div>
+                </fieldset>
+              </form>
             </div>
           </div>
-          <div class="panel-footer">
-            <button type="button" class="btn btn-default" ng-click="samples.addNewSample()">Add sample</button>
+          <!-- Mandatory metadata panel -->
+          <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Study metadata</h3>
+            </div>
+            <div class="panel-body">
+              <form name="studyRequiredForm">
+
+                <fieldset class="form-group">
+                  <label>{{study.centerName.label}}</label>
+                  <em>{{study.centerName.description}}</em>
+                  <input type="text" class="form-control" ng-model="study.centerName.value" name="{{study.centerName.label}}" placeholder="{{study.centerName.placeholder}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{study.shortName.label}}</label>
+                  <em>{{study.shortName.description}}</em>
+                  <input type="text" class="form-control" ng-model="study.shortName.value" name="{{study.shortName.label}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{study.title.label}}</label>
+                  <em>{{study.title.description}}</em>
+                  <input type="text" class="form-control" ng-model="study.title.value" name="{{study.title.label}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{study.studyType.label}}</label>
+                  <!-- <input type="text" class="form-control" ng-model="title.value" name="{{studyType.label}}" value=""> -->
+                  <select ng-model="study.studyType.value" class="form-control" ng-options="option for option in study.studyType.options" name="{{study.studyType.label}}">
+                  </select>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{study.abstract.label}}</label>
+                  <em>{{study.abstract.description}}</em>
+                  <textarea class="form-control" ng-model="study.abstract.value" name="{{study.abstract.label}}" value="" required></textarea>
+                </fieldset>
+              </form>
+            </div>
           </div>
-        </div>
-
-
-
-        <!-- Output XML panel -->
-        <div class="panel panel-info">
-          <div class="panel-heading clearfix">
-            <!-- <span class="caret"></span> -->
-            <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
-            <button type="button"
-              class="btn btn-default btn-sm pull-right"
-              ng-click="samples.saveXML()"
-              ng-disabled="samplesRequiredForm.$invalid">
-                <span class="glyphicon glyphicon-save-file"></span> Save XML to file
-            </button>
-          </div>
-          <div class="panel-body">
-            <samples-xml></samples-xml> <!-- This is an angular custom directive -->
-          </div>
-        </div>
-
-      </div> <!-- /sample -->
-
-      <!-- ******************************* -->
-      <!-- Analysis meta data form content -->
-      <!-- ******************************* -->
-      <div ng-controller="AnalysisController as analysis" ng-show="content.isSelected(4)">
-        <!-- Instructions panel -->
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Instructions</h3>
-          </div>
-          <div class="panel-body">
-            <p>
-              Add the information needed to define the Analysis in the form below.
-              When you are done you can download the information in an XML file
-              (see <em>Output XML</em> section below).
-            </p>
-            <p>
-              Alternatively, you can upload the information using a previously saved file:
-            </p>
-            <form class="form-inline">
-              <fieldset>
-                <div class="form-group">
-                  <label for="uploadAnalysisInput">Select XML file</label>
-                  <input id="uploadAnalysisInput" type="file" name="analysisFile" accept=".xml">
-                </div>
-                <div class="form-group">
-                  <label for="fillAnalysisForm">
-                    Insert info in file to
-                  </label><br>
-                  <button type="button"
-                          name="fillAnalysisForm"
-                          class="btn btn-default"
-                          ng-click="analysis.parseXML()">
-                            <span class="glyphicon glyphicon-refresh"></span>
-                            Fill form
+          <!-- Optional tag-value pairs panel -->
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title">Optional Study attributes</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-inline">
+                <fieldset ng-repeat="studyAttribute in study.studyAttributes">
+                  <div class="form-group">
+                    <label>Tag</label>
+                    <!-- set model & name--><input type="text" class="form-control" ng-model="studyAttribute.tag" name="" value="">
+                  </div>
+                  <div class="form-group">
+                    <label>Value</label>
+                    <input type="text" class="form-control" ng-model="studyAttribute.value" name="" value="">
+                  </div>
+                  <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="study.removeAttribute()" ng-hide="$first" ng-show="$last">
+                    <span class="glyphicon glyphicon-minus"></span>
                   </button>
+
+                  <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="study.addNewAttribute()" ng-show="$last">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <!-- Output XML panel -->
+          <div class="panel panel-info">
+            <div class="panel-heading clearfix">
+              <!-- <span class="caret"></span> -->
+              <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
+              <button type="button"
+                class="btn btn-default btn-sm pull-right"
+                ng-click="study.saveXML()"
+                ng-disabled="studyRequiredForm.$invalid">
+                  <span class="glyphicon glyphicon-save-file"></span> Save XML to file
+              </button>
+            </div>
+            <div class="panel-body">
+              <study-xml></study-xml> <!-- This is an angular custom directive -->
+            </div>
+          </div>
+
+        </div> <!-- /study -->
+
+        <!-- ****************************** -->
+        <!-- Samples meta data form content -->
+        <!-- ****************************** -->
+        <div ng-controller="SamplesController as samples" ng-show="content.isSelected(2)">
+          <!-- Instructions panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Instructions</h3>
+            </div>
+            <div class="panel-body">
+                <ol>
+                  <li>Start by adding information that is common for all or most
+                    samples in the <em>Metadata common for all samples</em> section.</li>
+                  <li>Then add indivdual samples (using the 'Add sample' button).
+                    The information common for all fields will then be pre-filled for
+                  the individual samples.</li>
+                  <li>When you want to save the information you can download the information in an XML file
+                  (see <em>Output XML</em> section below).</li>
+                </ol>
+              <p>
+                Alternatively, you can upload the information using a previously saved file:
+              </p>
+              <form class="form-inline">
+                <fieldset>
+                  <div class="form-group">
+                    <label for="uploadSampleInput">Select XML file</label>
+                    <input id="uploadSampleInput" type="file" name="sampleFile" accept=".xml">
+                  </div>
+                  <div class="form-group">
+                    <label for="fillStudyForm">
+                      Insert info in file to
+                    </label><br>
+                    <button type="button"
+                            name="fillSampleForm"
+                            class="btn btn-default"
+                            ng-click="samples.parseXML()">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                              Fill form
+                    </button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <!-- Common metadata panel -->
+          <div class="panel panel-info" id="common_metadata">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                  <!-- <a data-toggle="collapse" data-parent="#common_metadata" href="#common_metadata_form_panel"> -->
+                  <a data-toggle="collapse" href="#common_metadata_form_panel">
+                    Metadata common for all samples (click to expand)
+                  </a>
+                </h3>
+
+            </div>
+            <div class="panel-body panel-collapse" id="common_metadata_form_panel">
+              <form name="sampleCommonForm">
+
+                <fieldset class="form-group">
+                  <label>{{samples.common.centerName.label}}</label>
+                  <em>{{samples.common.centerName.description}}</em>
+                  <input type="text" class="form-control" ng-model="samples.common.centerName.value" placeholder="{{samples.common.centerName.placeholder}}" value="">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{samples.common.name.label}}</label>
+                  <em>{{samples.common.name.description}}</em>
+                  <input type="text" class="form-control" ng-model="samples.common.name.value" placeholder="{{samples.common.name.placeholder}}" value="">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{samples.common.title.label}}</label>
+                  <em>{{samples.common.title.description}}</em>
+                  <input type="text" class="form-control" ng-model="samples.common.title.value" placeholder="{{samples.common.title.placeholder}}" value="">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{samples.common.taxonID.label}}</label>
+                  <em>{{samples.common.taxonID.description}}. Search for it at <a href="http://www.ncbi.nlm.nih.gov/taxonomy" frame="ncbi">http://www.ncbi.nlm.nih.gov/taxonomy</a></em>
+                  <input type="number" integer class="form-control" ng-model="samples.common.taxonID.value" placeholder="{{samples.common.taxonID.placeholder}}" ng-blur="samples.getTaxonData(samples.common)" value="">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{samples.common.sci_name.label}}</label>
+                  <em>{{samples.common.sci_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
+                  <input type="text" class="form-control" ng-model="samples.common.sci_name.value" placeholder="{{samples.common.sci_name.placeholder}}" value="">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{samples.common.common_name.label}}</label>
+                  <em>{{samples.common.common_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
+                  <input type="text" class="form-control" ng-model="samples.common.common_name.value" placeholder="{{samples.common.common_name.placeholder}}" value="">
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{samples.common.description.label}}</label>
+                  <em>{{samples.common.description.description}}</em>
+                  <input type="text" class="form-control" ng-model="samples.common.description.value" placeholder="{{samples.common.description.placeholder}}" value="">
+                </fieldset>
+
+                <!-- Optional tag-value pairs panel -->
+                <div class="panel panel-warning">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Optional common Sample attributes</h3>
+                  </div>
+                  <div class="panel-body">
+                    <p>
+                      Select a pre-defined checklist from the dropdown menu, or create your own by adding attributes using the <span class="glyphicon glyphicon-plus"></span> button
+                    </p>
+                    <p>
+                      <!-- <select class="" name="">
+                        <option value=""></option>
+                      </select> -->
+                      <select ng-model="samples.common.selected_checklist" class="form-control" ng-options="checklist.name for (acc, checklist) in samples.checklist" ng-change="samples.loadChecklist(samples.common)">
+                      </select>
+                    </p>
+                    <!-- <p> -->
+                      <!-- <button type="button" class="btn btn-default" ng-click="samples.loadChecklist(samples.common)">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                      </button> -->
+                      <!-- Load checklist: -->
+                      <!-- <strong>{{samples.common.selected_checklist.acc}}</strong> {{samples.common.selected_checklist.name}} -->
+                    <!-- </p> -->
+                    <p class="help-block">
+                      {{samples.common.selected_checklist.description}}
+                    </p>
+                    <ng-form class="form-inline">
+                      <fieldset ng-repeat="attribute in samples.common.attributes">
+                        <div class="form-group">
+                          <label>Tag</label>
+                          <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
+                        </div>
+                        <div class="form-group" ng-switch="attribute.text_choices.length>0"> <!-- test if there are text choices defined -->
+                          <label>Value</label>
+                          <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.value" name="" value="">
+                          <select ng-switch-when="true" ng-model="attribute.value" class="form-control" ng-options="choice for choice in attribute.text_choices" name=""></select>
+                        </div>
+                        <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
+                          <label ng-switch-when="true">Unit</label>
+                          <label ng-switch-when="false">(Unit)</label>
+                          <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
+                          <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
+                        </div>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(samples.common, attribute)" ng-hide="$first" ng-show="$last">
+                          <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(samples.common)" ng-show="$last">
+                          <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <span class="help-block" ng-switch="attribute.description.length>0" style="padding-left: 30px"><strong>{{attribute.group}}</strong><span ng-switch-when="true"> – </span>{{attribute.description}} <span ng-switch-when="true">(<strong><em>{{attribute.mandatory}}</em></strong>)</span></span>
+                      </fieldset>
+                    </ng-form>
+                  </div>
                 </div>
-              </fieldset>
-            </form>
+
+
+              </form>
+            </div>
           </div>
-        </div>
-        <!-- Mandatory metadata panel -->
-        <div class="panel panel-success">
-          <div class="panel-heading">
-              <h3 class="panel-title">Analysis metadata</h3>
-          </div>
-          <div class="panel-body">
-            <form name="studyRequiredForm">
 
-              <fieldset class="form-group">
-                <label>{{analysis.centerName.label}}</label>
-                <em>{{analysis.centerName.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.centerName.value" name="{{analysis.centerName.label}}" placeholder="{{analysis.centerName.placeholder}}" value="" required>
-              </fieldset>
 
-              <fieldset class="form-group">
-                <label>{{analysis.shortName.label}}</label>
-                <em>{{analysis.shortName.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.shortName.value" name="{{analysis.shortName.label}}" value="" required>
-              </fieldset>
+          <!-- Individual Samples metadata -->
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <a data-toggle="collapse" href="#samples_form_panel">
+                <h3 class="panel-title">Metadata for individual samples</h3>
+              </a>
+            </div>
+            <div class="panel-body panel-collapse collapse in" id="samples_form_panel">
 
-              <fieldset class="form-group">
-                <label>{{analysis.title.label}}</label>
-                <em>{{analysis.title.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.title.value" name="{{analysis.title.label}}" value="" required>
-              </fieldset>
 
-              <fieldset class="form-group">
-                <label>{{analysis.description.label}}</label>
-                <em>{{analysis.description.description}}</em>
-                <!-- <input type="text" class="form-control" ng-model="analysis.description.value" name="{{analysis.description.label}}" value="" required> -->
-                <textarea class="form-control" ng-model="analysis.description.value" name="{{analysis.description.label}}" value="" required></textarea>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.studyReferenceName.label}}</label>
-                <em>{{analysis.studyReferenceName.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.studyReferenceName.value" name="{{analysis.studyReferenceName.label}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.studyReferenceCenterName.label}}</label>
-                <em>{{analysis.studyReferenceCenterName.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.studyReferenceCenterName.value" name="{{analysis.studyReferenceCenterName.label}}" placeholder="{{analysis.studyReferenceCenterName.placeholder}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.sampleReferenceName.label}}</label>
-                <em>{{analysis.sampleReferenceName.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.sampleReferenceName.value" name="{{analysis.sampleReferenceName.label}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.sampleReferenceCenterName.label}}</label>
-                <em>{{analysis.sampleReferenceCenterName.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.sampleReferenceCenterName.value" name="{{analysis.sampleReferenceCenterName.label}}" placeholder="{{analysis.sampleReferenceCenterName.placeholder}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.partial.label}}</label>
-                <em>{{analysis.partial.description}}</em>
-                <select ng-model="analysis.partial.value" class="form-control" ng-options="option for option in analysis.partial.options" name="{{analysis.partial.label}}" required>
-                </select>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.coverage.label}}</label>
-                <em>{{analysis.coverage.description}}</em>
-                <input type="number" class="form-control" ng-model="analysis.coverage.value" name="{{analysis.coverage.label}}" placeholder="{{analysis.coverage.placeholder}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.program.label}}</label>
-                <em>{{analysis.program.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.program.value" name="{{analysis.program.label}}" placeholder="{{analysis.program.placeholder}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.platform.label}}</label>
-                <em>{{analysis.platform.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.platform.value" name="{{analysis.platform.label}}" placeholder="{{analysis.platform.placeholder}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.assemblyFileName.label}}</label>
-                <em>{{analysis.assemblyFileName.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.assemblyFileName.value" name="{{analysis.assemblyFileName.label}}" placeholder="{{analysis.assemblyFileName.placeholder}}" value="" required>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.assemblyFileType.label}}</label>
-                <em>{{analysis.assemblyFileType.description}}</em>
-                <select ng-model="analysis.assemblyFileType.value" class="form-control" ng-options="option for option in analysis.assemblyFileType.options" name="{{analysis.assemblyFileType.label}}" required>
-                </select>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>{{analysis.assemblyFileChecksum.label}}</label>
-                <em>{{analysis.assemblyFileChecksum.description}}</em>
-                <input type="text" class="form-control" ng-model="analysis.assemblyFileChecksum.value" name="{{analysis.assemblyFileChecksum.label}}" placeholder="{{analysis.assemblyFileChecksum.placeholder}}" value="" required>
-              </fieldset>
-
-            </form>
-          </div>
-        </div>
-        <!-- Optional tag-value pairs panel -->
-        <div class="panel panel-warning">
-          <div class="panel-heading">
-            <h3 class="panel-title">Optional Analysis attributes</h3>
-          </div>
-          <div class="panel-body">
-            <form class="form-inline">
-              <fieldset ng-repeat="analysisAttribute in analysis.analysisAttributes">
-                <div class="form-group">
-                  <label>Tag</label>
-                  <!-- set model & name--><input type="text" class="form-control" ng-model="analysisAttribute.tag" name="" value="">
+              <div class="panel panel-info" ng-repeat="sample in samples.list" > <!-- nested panels for each sample-->
+                <div class="panel-heading">
+                  <a data-toggle="collapse" href="#sample{{$index}}">
+                    <h3 class="panel-title">Sample {{$index + 1}}</h3>
+                  </a>
                 </div>
-                <div class="form-group">
-                  <label>Value</label>
-                  <input type="text" class="form-control" ng-model="analysisAttribute.value" name="" value="">
+                <div class="panel-body panel-collapse collapse in" id="sample{{$index}}">
+                  <form name="sampleIndividualForm">
+
+                    <fieldset class="form-group">
+                      <label>{{sample.centerName.label}}</label>
+                      <em>{{sample.centerName.description}}</em>
+                      <input type="text" class="form-control" ng-model="sample.centerName.value" placeholder="{{sample.centerName.placeholder}}" ng-bind="samples.common.centerName.value" value="">
+                      <!-- <input type="text" class="form-control" ng-model="samples.common.centerName.value" placeholder="{{sample.centerName.placeholder}}" data-ng-bind="samples.common.centerName.value" value=""> -->
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                      <label>{{sample.name.label}}</label>
+                      <em>{{sample.name.description}}</em>
+                      <input type="text" class="form-control" ng-model="sample.name.value" placeholder="{{sample.name.placeholder}}" value="">
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                      <label>{{sample.title.label}}</label>
+                      <em>{{sample.title.description}}</em>
+                      <input type="text" class="form-control" ng-model="sample.title.value" placeholder="{{sample.title.placeholder}}" value="">
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                      <label>{{sample.taxonID.label}}</label>
+                      <em>{{sample.taxonID.description}}. Search for it at <a href="http://www.ncbi.nlm.nih.gov/taxonomy" frame="ncbi">http://www.ncbi.nlm.nih.gov/taxonomy</a></em>
+                      <input type="number" integer class="form-control" ng-model="sample.taxonID.value" placeholder="{{sample.taxonID.placeholder}}" ng-blur="samples.getTaxonData(sample)" value="">
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                      <label>{{sample.sci_name.label}}</label>
+                      <em>{{sample.sci_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
+                      <input type="text" class="form-control" ng-model="sample.sci_name.value" placeholder="{{sample.sci_name.placeholder}}" value="">
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                      <label>{{sample.common_name.label}}</label>
+                      <em>{{sample.common_name.description}}</em> – <strong>autofilled</strong> if a proper Taxon ID is provided
+                      <input type="text" class="form-control" ng-model="sample.common_name.value" placeholder="{{sample.common_name.placeholder}}" value="">
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                      <label>{{sample.description.label}}</label>
+                      <em>{{sample.description.description}}</em>
+                      <input type="text" class="form-control" ng-model="sample.description.value" placeholder="{{sample.description.placeholder}}" value="">
+                    </fieldset>
+
+                    <!-- Optional tag-value pairs panel -->
+                    <div class="panel panel-warning">
+                      <div class="panel-heading">
+                        <h3 class="panel-title">Optional Sample attributes</h3>
+                      </div>
+                      <div class="panel-body">
+                        <!-- <p>
+                          <button type="button" class="btn btn-default" ng-click="samples.loadChecklist()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                          </button>
+                          Load ENA default sample checklist (ERC000011)
+                        </p> -->
+                        <ng-form class="form-inline">
+                          <fieldset ng-repeat="attribute in sample.attributes">
+                            <div class="form-group">
+                              <label>Tag</label>
+                              <input type="text" class="form-control" ng-model="attribute.tag" name="" value="">
+                            </div>
+
+                            <div class="form-group" ng-switch="attribute.text_choices.length>0"> <!-- test if there are text choices defined -->
+                              <label>Value</label>
+                              <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.value" name="" value="">
+                              <select ng-switch-when="true" ng-model="attribute.value" class="form-control" ng-options="choice for choice in attribute.text_choices" name=""></select>
+                            </div>
+
+                            <div class="form-group" ng-switch="attribute.units.length>0"> <!-- test if there is a units field defined -->
+                              <label ng-switch-when="true">Unit</label>
+                              <label ng-switch-when="false">(Unit)</label>
+                              <input type="text" class="form-control" ng-switch-when="false" ng-model="attribute.unit" name="" value="">
+                              <select ng-switch-when="true" ng-model="attribute.unit" class="form-control" ng-options="unit for unit in attribute.units" name=""></select>
+                            </div>
+
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="samples.removeAttribute(sample, attribute)">
+                              <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="samples.addNewAttribute(sample)" ng-show="$last">
+                              <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <span class="help-block" ng-switch="attribute.description.length>0" style="padding-left: 30px"><strong>{{attribute.group}}</strong><span ng-switch-when="true"> – </span>{{attribute.description}} <span ng-switch-when="true">(<strong><em>{{attribute.mandatory}}</em></strong>)</span></span>
+                          </fieldset>
+                        </ng-form>
+                      </div>
+                    </div>
+
+
+                  </form>
                 </div>
-                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="analysis.removeAttribute()" ng-hide="$first" ng-show="$last">
-                  <span class="glyphicon glyphicon-minus"></span>
-                </button>
-
-                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="analysis.addNewAttribute()" ng-show="$last">
-                  <span class="glyphicon glyphicon-plus"></span>
-                </button>
-              </fieldset>
-            </form>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button type="button" class="btn btn-default" ng-click="samples.addNewSample()">Add sample</button>
+            </div>
           </div>
-        </div>
-        <!-- Output XML panel -->
-        <div class="panel panel-info">
-          <div class="panel-heading clearfix">
-            <!-- <span class="caret"></span> -->
-            <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
-            <button type="button"
-              class="btn btn-default btn-sm pull-right"
-              ng-click="analysis.saveXML()"
-              ng-disabled="studyRequiredForm.$invalid">
-                <span class="glyphicon glyphicon-save-file"></span> Save XML to file
-            </button>
+
+
+
+          <!-- Output XML panel -->
+          <div class="panel panel-info">
+            <div class="panel-heading clearfix">
+              <!-- <span class="caret"></span> -->
+              <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
+              <button type="button"
+                class="btn btn-default btn-sm pull-right"
+                ng-click="samples.saveXML()"
+                ng-disabled="samplesRequiredForm.$invalid">
+                  <span class="glyphicon glyphicon-save-file"></span> Save XML to file
+              </button>
+            </div>
+            <div class="panel-body">
+              <samples-xml></samples-xml> <!-- This is an angular custom directive -->
+            </div>
           </div>
-          <div class="panel-body">
-            <analysis-xml></analysis-xml> <!-- This is an angular custom directive -->
+
+        </div> <!-- /sample -->
+
+        <!-- ******************************* -->
+        <!-- Analysis meta data form content -->
+        <!-- ******************************* -->
+        <div ng-controller="AnalysisController as analysis" ng-show="content.isSelected(4)">
+          <!-- Instructions panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Instructions</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                Add the information needed to define the Analysis in the form below.
+                When you are done you can download the information in an XML file
+                (see <em>Output XML</em> section below).
+              </p>
+              <p>
+                Alternatively, you can upload the information using a previously saved file:
+              </p>
+              <form class="form-inline">
+                <fieldset>
+                  <div class="form-group">
+                    <label for="uploadAnalysisInput">Select XML file</label>
+                    <input id="uploadAnalysisInput" type="file" name="analysisFile" accept=".xml">
+                  </div>
+                  <div class="form-group">
+                    <label for="fillAnalysisForm">
+                      Insert info in file to
+                    </label><br>
+                    <button type="button"
+                            name="fillAnalysisForm"
+                            class="btn btn-default"
+                            ng-click="analysis.parseXML()">
+                              <span class="glyphicon glyphicon-refresh"></span>
+                              Fill form
+                    </button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
           </div>
-        </div>
+          <!-- Mandatory metadata panel -->
+          <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Analysis metadata</h3>
+            </div>
+            <div class="panel-body">
+              <form name="studyRequiredForm">
 
-      </div> <!-- /analysis -->
+                <fieldset class="form-group">
+                  <label>{{analysis.centerName.label}}</label>
+                  <em>{{analysis.centerName.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.centerName.value" name="{{analysis.centerName.label}}" placeholder="{{analysis.centerName.placeholder}}" value="" required>
+                </fieldset>
 
+                <fieldset class="form-group">
+                  <label>{{analysis.shortName.label}}</label>
+                  <em>{{analysis.shortName.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.shortName.value" name="{{analysis.shortName.label}}" value="" required>
+                </fieldset>
 
-    </div> <!-- /container -->
-      
+                <fieldset class="form-group">
+                  <label>{{analysis.title.label}}</label>
+                  <em>{{analysis.title.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.title.value" name="{{analysis.title.label}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.description.label}}</label>
+                  <em>{{analysis.description.description}}</em>
+                  <!-- <input type="text" class="form-control" ng-model="analysis.description.value" name="{{analysis.description.label}}" value="" required> -->
+                  <textarea class="form-control" ng-model="analysis.description.value" name="{{analysis.description.label}}" value="" required></textarea>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.studyReferenceName.label}}</label>
+                  <em>{{analysis.studyReferenceName.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.studyReferenceName.value" name="{{analysis.studyReferenceName.label}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.studyReferenceCenterName.label}}</label>
+                  <em>{{analysis.studyReferenceCenterName.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.studyReferenceCenterName.value" name="{{analysis.studyReferenceCenterName.label}}" placeholder="{{analysis.studyReferenceCenterName.placeholder}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.sampleReferenceName.label}}</label>
+                  <em>{{analysis.sampleReferenceName.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.sampleReferenceName.value" name="{{analysis.sampleReferenceName.label}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.sampleReferenceCenterName.label}}</label>
+                  <em>{{analysis.sampleReferenceCenterName.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.sampleReferenceCenterName.value" name="{{analysis.sampleReferenceCenterName.label}}" placeholder="{{analysis.sampleReferenceCenterName.placeholder}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.partial.label}}</label>
+                  <em>{{analysis.partial.description}}</em>
+                  <select ng-model="analysis.partial.value" class="form-control" ng-options="option for option in analysis.partial.options" name="{{analysis.partial.label}}" required>
+                  </select>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.coverage.label}}</label>
+                  <em>{{analysis.coverage.description}}</em>
+                  <input type="number" class="form-control" ng-model="analysis.coverage.value" name="{{analysis.coverage.label}}" placeholder="{{analysis.coverage.placeholder}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.program.label}}</label>
+                  <em>{{analysis.program.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.program.value" name="{{analysis.program.label}}" placeholder="{{analysis.program.placeholder}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.platform.label}}</label>
+                  <em>{{analysis.platform.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.platform.value" name="{{analysis.platform.label}}" placeholder="{{analysis.platform.placeholder}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.assemblyFileName.label}}</label>
+                  <em>{{analysis.assemblyFileName.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.assemblyFileName.value" name="{{analysis.assemblyFileName.label}}" placeholder="{{analysis.assemblyFileName.placeholder}}" value="" required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.assemblyFileType.label}}</label>
+                  <em>{{analysis.assemblyFileType.description}}</em>
+                  <select ng-model="analysis.assemblyFileType.value" class="form-control" ng-options="option for option in analysis.assemblyFileType.options" name="{{analysis.assemblyFileType.label}}" required>
+                  </select>
+                </fieldset>
+
+                <fieldset class="form-group">
+                  <label>{{analysis.assemblyFileChecksum.label}}</label>
+                  <em>{{analysis.assemblyFileChecksum.description}}</em>
+                  <input type="text" class="form-control" ng-model="analysis.assemblyFileChecksum.value" name="{{analysis.assemblyFileChecksum.label}}" placeholder="{{analysis.assemblyFileChecksum.placeholder}}" value="" required>
+                </fieldset>
+
+              </form>
+            </div>
+          </div>
+          <!-- Optional tag-value pairs panel -->
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title">Optional Analysis attributes</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-inline">
+                <fieldset ng-repeat="analysisAttribute in analysis.analysisAttributes">
+                  <div class="form-group">
+                    <label>Tag</label>
+                    <!-- set model & name--><input type="text" class="form-control" ng-model="analysisAttribute.tag" name="" value="">
+                  </div>
+                  <div class="form-group">
+                    <label>Value</label>
+                    <input type="text" class="form-control" ng-model="analysisAttribute.value" name="" value="">
+                  </div>
+                  <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Remove attribute" ng-click="analysis.removeAttribute()" ng-hide="$first" ng-show="$last">
+                    <span class="glyphicon glyphicon-minus"></span>
+                  </button>
+
+                  <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Add another attribute" ng-click="analysis.addNewAttribute()" ng-show="$last">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <!-- Output XML panel -->
+          <div class="panel panel-info">
+            <div class="panel-heading clearfix">
+              <!-- <span class="caret"></span> -->
+              <h3 class="panel-title pull-left" style="padding-top: 6px;">Output XML</h3>
+              <button type="button"
+                class="btn btn-default btn-sm pull-right"
+                ng-click="analysis.saveXML()"
+                ng-disabled="studyRequiredForm.$invalid">
+                  <span class="glyphicon glyphicon-save-file"></span> Save XML to file
+              </button>
+            </div>
+            <div class="panel-body">
+              <analysis-xml></analysis-xml> <!-- This is an angular custom directive -->
+            </div>
+          </div>
+
+        </div> <!-- /analysis -->
+
+      </div> <!-- /container -->
     </div> <!-- /ng-app -->
-
+ 
   </body>
 </html>
